@@ -43,7 +43,9 @@ async function updatePipedriveDeal(
   });
   if (!res.ok) {
     const text = await res.text();
-    throw new Error(`Pipedrive PUT /deals/${dealId} failed (${res.status}): ${text}`);
+    throw new Error(
+      `Pipedrive PUT /deals/${dealId} failed (${res.status}): ${text}`
+    );
   }
 }
 
@@ -74,18 +76,11 @@ async function postSlackMessage(
   }
 }
 
-/**
- * Look up a Slack user ID by email address.
- * Returns the Slack user ID string (e.g. "U01ABC123") or null if not found.
- * Requires the `users:read.email` scope on the Slack bot.
- */
 async function lookupSlackUserByEmail(email: string): Promise<string | null> {
   const token = env("SLACK_BOT_TOKEN");
   const res = await fetch(
     `https://slack.com/api/users.lookupByEmail?email=${encodeURIComponent(email)}`,
-    {
-      headers: { Authorization: `Bearer ${token}` },
-    }
+    { headers: { Authorization: `Bearer ${token}` } }
   );
   if (!res.ok) return null;
   const json = await res.json();
@@ -93,13 +88,6 @@ async function lookupSlackUserByEmail(email: string): Promise<string | null> {
   return json.user.id;
 }
 
-// ---------------------------------------------------------------------------
-// Pipedrive user helper
-// ---------------------------------------------------------------------------
-
-/**
- * Fetch a Pipedrive user's email by their user ID.
- */
 async function getPipedriveUserEmail(userId: number): Promise<string | null> {
   const url = `${PIPEDRIVE_BASE_URL()}/users/${userId}?api_token=${PIPEDRIVE_API_TOKEN()}`;
   try {
@@ -110,6 +98,34 @@ async function getPipedriveUserEmail(userId: number): Promise<string | null> {
   } catch {
     return null;
   }
+}
+
+// ---------------------------------------------------------------------------
+// V2 custom field value extractors
+// ---------------------------------------------------------------------------
+
+/**
+ * Extract value from a Pipedrive v2 custom field object.
+ * Enum fields: { id: 348, type: "enum" } → returns the id
+ * Number fields: { type: "double", value: 30 } → returns the value
+ * Text fields: { type: "varchar", value: "Tech" } → returns the value
+ * Null fields: null → returns null
+ */
+function getCustomFieldValue(
+  field: unknown
+): string | number | null {
+  if (field === null || field === undefined) return null;
+  if (typeof field === "string" || typeof field === "number") return field;
+  if (typeof field === "object" && field !== null) {
+    const f = field as Record<string, unknown>;
+    // Enum fields use "id" as the value
+    if (f.type === "enum" && f.id !== undefined) return f.id as number;
+    // All other typed fields use "value"
+    if (f.value !== undefined) return f.value as string | number;
+    // If it has an "id" but no type, still use id
+    if (f.id !== undefined) return f.id as number;
+  }
+  return null;
 }
 
 // ---------------------------------------------------------------------------
@@ -129,7 +145,6 @@ function usd(n: number): string {
 // ---------------------------------------------------------------------------
 
 serve(async (req: Request) => {
-  // Only accept POST
   if (req.method !== "POST") {
     return new Response(JSON.stringify({ error: "Method not allowed" }), {
       status: 405,
@@ -153,37 +168,48 @@ serve(async (req: Request) => {
     }
 
     // ------------------------------------------------------------------
-    // Step 2: Parse Pipedrive webhook payload
+    // Step 2: Parse Pipedrive v2 webhook payload
+    // Structure: { data: { ...deal... }, previous: { custom_fields: {...} }, meta: {...} }
     // ------------------------------------------------------------------
     const payload = await req.json();
-    const current = payload.current;
+    const dealData = payload.data;
     const previous = payload.previous;
+    const meta = payload.meta;
 
-    if (!current || !previous) {
-      console.log("No current/previous in payload – ignoring");
+    if (!dealData) {
+      console.log("No deal data in payload – ignoring");
       return new Response(JSON.stringify({ ok: true, skipped: true }), {
         status: 200,
         headers: { "Content-Type": "application/json" },
       });
     }
 
-    const dealId: number = current.id;
+    const dealId: number = dealData.id;
+    const customFields = dealData.custom_fields || {};
+    const prevCustomFields = previous?.custom_fields || {};
+
+    console.log(`Webhook received for deal ${dealId} (${dealData.title})`);
 
     // ------------------------------------------------------------------
     // Step 3: Guard against feedback loops
     // Check that generate_proposal changed to "Yes" option ID
+    // V2 enum format: { id: 348, type: "enum" }
     // ------------------------------------------------------------------
     const fieldKey = env("PIPEDRIVE_FIELD_GENERATE_PROPOSAL");
     const yesOptionId = env("PIPEDRIVE_OPTION_GENERATE_YES");
 
-    const currentVal = String(current[fieldKey] ?? "");
-    const previousVal = String(previous[fieldKey] ?? "");
+    const currentFieldVal = getCustomFieldValue(customFields[fieldKey]);
+    const previousFieldVal = getCustomFieldValue(prevCustomFields[fieldKey]);
 
-    if (currentVal !== yesOptionId || previousVal === yesOptionId) {
-      // Either not set to "Yes", or was already "Yes" (no change)
-      console.log(
-        `generate_proposal not changed to Yes (current=${currentVal}, prev=${previousVal}) – ignoring`
-      );
+    console.log(
+      `generate_proposal: current=${currentFieldVal}, previous=${previousFieldVal}, yesId=${yesOptionId}`
+    );
+
+    if (
+      String(currentFieldVal) !== String(yesOptionId) ||
+      String(previousFieldVal) === String(yesOptionId)
+    ) {
+      console.log("generate_proposal not changed to Yes – ignoring");
       return new Response(JSON.stringify({ ok: true, skipped: true }), {
         status: 200,
         headers: { "Content-Type": "application/json" },
@@ -193,18 +219,30 @@ serve(async (req: Request) => {
     console.log(`Processing deal ${dealId}: generate_proposal changed to Yes`);
 
     // ------------------------------------------------------------------
-    // Step 4: Extract deal fields
+    // Step 4: Extract deal fields from v2 payload
     // ------------------------------------------------------------------
-    const companyName: string = current.title || "";
-    const industry: string = String(current[env("PIPEDRIVE_FIELD_INDUSTRY")] ?? "");
-    const w2CountRaw = current[env("PIPEDRIVE_FIELD_W2_COUNT")];
+    const companyName: string = dealData.title || "";
+    const industryRaw = getCustomFieldValue(
+      customFields[env("PIPEDRIVE_FIELD_INDUSTRY")]
+    );
+    const industry: string = industryRaw ? String(industryRaw) : "";
+    const w2CountRaw = getCustomFieldValue(
+      customFields[env("PIPEDRIVE_FIELD_W2_COUNT")]
+    );
     const w2Count: number = w2CountRaw ? Number(w2CountRaw) : 0;
     const taxYear = new Date().getFullYear();
     const pipedriveDealdId = String(dealId);
 
-    // Field keys for writing back to Pipedrive
+    // Field key for writing back to Pipedrive
     const fieldCasePageUrl = env("PIPEDRIVE_FIELD_CASE_PAGE_URL");
     const fieldGenerateProposal = fieldKey;
+
+    // Owner ID for Slack @mention
+    const ownerId: number | undefined = dealData.owner_id;
+
+    console.log(
+      `Fields: company=${companyName}, industry=${industry}, w2=${w2Count}, owner=${ownerId}`
+    );
 
     // ------------------------------------------------------------------
     // Step 5: Validate required fields
@@ -218,10 +256,9 @@ serve(async (req: Request) => {
       const errorMsg = `Missing required fields: ${missing.join(", ")}`;
       console.warn(`Deal ${dealId}: ${errorMsg}`);
 
-      // Reset generate_proposal so staff can fix and re-trigger
       try {
         await updatePipedriveDeal(dealId, {
-          [fieldGenerateProposal]: "", // Reset to No / empty
+          [fieldGenerateProposal]: "",
         });
       } catch (e) {
         console.error("Failed to reset generate_proposal:", e);
@@ -249,7 +286,7 @@ serve(async (req: Request) => {
       const now = Date.now();
       if (now - lastGen < IDEMPOTENCY_WINDOW_SECONDS * 1000) {
         console.log(
-          `Deal ${dealId}: within idempotency window (${IDEMPOTENCY_WINDOW_SECONDS}s) – skipping`
+          `Deal ${dealId}: within idempotency window – skipping`
         );
         return new Response(
           JSON.stringify({
@@ -327,7 +364,6 @@ serve(async (req: Request) => {
 
     if (revokeError) {
       console.warn("Failed to revoke old links:", revokeError);
-      // Non-fatal — continue
     }
 
     // ------------------------------------------------------------------
@@ -372,18 +408,15 @@ serve(async (req: Request) => {
 
     // ------------------------------------------------------------------
     // Step 13: Post Slack message (FIRST — before Pipedrive update)
-    // Resolve deal owner to a Slack @mention
     // ------------------------------------------------------------------
-    const slackChannel =
-      Deno.env.get("SLACK_DEFAULT_CHANNEL") || "";
+    const slackChannel = Deno.env.get("SLACK_DEFAULT_CHANNEL") || "";
 
     if (slackChannel) {
       try {
         // Resolve deal owner → Slack @mention
         let ownerMention = "";
-        const dealOwnerId: number | undefined = current.user_id;
-        if (dealOwnerId) {
-          const ownerEmail = await getPipedriveUserEmail(dealOwnerId);
+        if (ownerId) {
+          const ownerEmail = await getPipedriveUserEmail(ownerId);
           if (ownerEmail) {
             const slackUserId = await lookupSlackUserByEmail(ownerEmail);
             if (slackUserId) {
@@ -391,12 +424,12 @@ serve(async (req: Request) => {
             } else {
               console.warn(`Slack user not found for email: ${ownerEmail}`);
             }
-          } else {
-            console.warn(`Could not get email for Pipedrive user ${dealOwnerId}`);
           }
         }
 
-        const ownerLine = ownerMention ? `*Deal Owner:* ${ownerMention}\n` : "";
+        const ownerLine = ownerMention
+          ? `*Deal Owner:* ${ownerMention}\n`
+          : "";
 
         const slackText =
           `📋 *New Proposal Generated*\n` +
@@ -407,15 +440,15 @@ serve(async (req: Request) => {
           `*Total Tax Reduction:* ${usd(calcTotal)}\n` +
           `*Employer Net Savings:* ${usd(calcEr)}\n` +
           `*Employee Reduction:* ${usd(calcEe)}\n\n` +
-          `*Link:* ${caseUrl}\n` +
-          `*Passcode:* \`${rawPasscode}\`\n` +
+          `*Link:* ${caseUrl}\n\n` +
+          `*Passcode:*\n` +
+          `\`\`\`${rawPasscode}\`\`\`\n` +
           `_Expires: ${new Date(expiresAt).toLocaleDateString("en-US")}_`;
 
         await postSlackMessage(slackChannel, slackText);
         console.log(`Deal ${dealId}: Slack message posted`);
       } catch (e) {
         console.error("Slack post failed (non-fatal):", e);
-        // Non-fatal — the link is already created
       }
     } else {
       console.warn("No SLACK_DEFAULT_CHANNEL set — skipping Slack post");
@@ -431,7 +464,6 @@ serve(async (req: Request) => {
       console.log(`Deal ${dealId}: Pipedrive updated with case URL`);
     } catch (e) {
       console.error("Pipedrive update failed (non-fatal):", e);
-      // Non-fatal — case + link already exist, Slack already posted
     }
 
     // ------------------------------------------------------------------
