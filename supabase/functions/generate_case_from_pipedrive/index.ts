@@ -198,16 +198,25 @@ serve(async (req: Request) => {
     const fieldKey = env("PIPEDRIVE_FIELD_GENERATE_PROPOSAL");
     const yesOptionId = env("PIPEDRIVE_OPTION_GENERATE_YES");
 
+    // In v2, `previous.custom_fields` only contains fields that actually changed.
+    // If generate_proposal is NOT in previous, it means it didn't change — skip.
+    const generateFieldChanged = fieldKey in prevCustomFields;
+
     const currentFieldVal = getCustomFieldValue(customFields[fieldKey]);
-    const previousFieldVal = getCustomFieldValue(prevCustomFields[fieldKey]);
+    const previousFieldVal = generateFieldChanged
+      ? getCustomFieldValue(prevCustomFields[fieldKey])
+      : null;
 
     console.log(
-      `generate_proposal: current=${currentFieldVal}, previous=${previousFieldVal}, yesId=${yesOptionId}`
+      `generate_proposal: changed=${generateFieldChanged}, current=${currentFieldVal}, previous=${previousFieldVal}, yesId=${yesOptionId}`
     );
 
+    // Only proceed if:
+    // 1. The generate_proposal field actually changed in this update
+    // 2. The new value is the "Yes" option ID
     if (
-      String(currentFieldVal) !== String(yesOptionId) ||
-      String(previousFieldVal) === String(yesOptionId)
+      !generateFieldChanged ||
+      String(currentFieldVal) !== String(yesOptionId)
     ) {
       console.log("generate_proposal not changed to Yes – ignoring");
       return new Response(JSON.stringify({ ok: true, skipped: true }), {
