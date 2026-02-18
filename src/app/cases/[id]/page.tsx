@@ -240,7 +240,7 @@ export default function CaseViewerPage({
 
     return (
       <PageShell companyName={caseData.company_name}>
-        <div className="w-full max-w-2xl mx-auto space-y-6">
+        <div className="w-full max-w-2xl mx-auto space-y-5 sm:space-y-6">
 
           {/* ============================================================ */}
           {/* CARD 1 — Header + Hero Numbers                               */}
@@ -248,7 +248,7 @@ export default function CaseViewerPage({
           <div className="bg-white rounded-2xl shadow-xl shadow-gray-200/60 border border-gray-100 overflow-hidden">
             {/* Header */}
             <div
-              className="px-8 py-8 animate-fade-in"
+              className="px-5 py-7 sm:px-8 sm:py-8 animate-fade-in"
               style={{ background: "linear-gradient(135deg, #0b2043 0%, #38b6ff 60%, #38b6ff 100%)" }}
             >
               <Image
@@ -289,7 +289,7 @@ export default function CaseViewerPage({
 
             {/* Hero Number */}
             <div
-              className="px-8 py-10 text-center border-b border-gray-100"
+              className="px-5 py-8 sm:px-8 sm:py-10 text-center border-b border-gray-100"
               style={{ background: "linear-gradient(to bottom, #eef8ff, #ffffff)" }}
             >
               <p
@@ -313,9 +313,9 @@ export default function CaseViewerPage({
             </div>
 
             {/* Breakdown Cards */}
-            <div className="px-8 py-8">
+            <div className="px-5 py-7 sm:px-8 sm:py-8">
               <h3
-                className="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-5 animate-fade-in"
+                className="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-4 sm:mb-5 animate-fade-in"
                 style={{ animationDelay: "700ms" }}
               >
                 Savings Breakdown
@@ -363,7 +363,7 @@ export default function CaseViewerPage({
           {/* TRUST BAR — Social Proof                                     */}
           {/* ============================================================ */}
           <div className="animate-fade-in-up" style={{ animationDelay: "1000ms" }}>
-            <div className="grid grid-cols-3 gap-3">
+            <div className="grid grid-cols-3 gap-2 sm:gap-3">
               {[
                 { value: "10,000+", label: "Employers Served" },
                 { value: "50", label: "States Covered" },
@@ -371,13 +371,13 @@ export default function CaseViewerPage({
               ].map((stat) => (
                 <div
                   key={stat.label}
-                  className="rounded-xl py-5 px-4 text-center border"
+                  className="rounded-xl py-4 px-3 sm:py-5 sm:px-4 text-center border"
                   style={{ backgroundColor: "rgba(11,32,67,0.03)", borderColor: "rgba(11,32,67,0.08)" }}
                 >
-                  <p className="text-2xl sm:text-3xl font-extrabold" style={{ color: "#0b2043" }}>
+                  <p className="text-xl sm:text-3xl font-extrabold" style={{ color: "#0b2043" }}>
                     {stat.value}
                   </p>
-                  <p className="text-xs text-gray-500 mt-1 font-medium">{stat.label}</p>
+                  <p className="text-[10px] sm:text-xs text-gray-500 mt-1 font-medium">{stat.label}</p>
                 </div>
               ))}
             </div>
@@ -387,7 +387,7 @@ export default function CaseViewerPage({
           {/* CARD 2 — What is SIMERP?                                     */}
           {/* ============================================================ */}
           <div className="bg-white rounded-2xl shadow-xl shadow-gray-200/60 border border-gray-100 overflow-hidden animate-fade-in-up" style={{ animationDelay: "1100ms" }}>
-            <div className="px-8 pt-8 pb-2">
+            <div className="px-5 pt-7 pb-2 sm:px-8 sm:pt-8">
               <p className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: "#38b6ff" }}>
                 Overview
               </p>
@@ -410,7 +410,7 @@ export default function CaseViewerPage({
             </div>
 
             {/* Employer & Employee Benefits */}
-            <div className="px-8 py-6">
+            <div className="px-5 py-6 sm:px-8">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {/* Employer */}
                 <div className="rounded-xl p-5 border" style={{ backgroundColor: "rgba(16,185,129,0.04)", borderColor: "rgba(16,185,129,0.15)" }}>
@@ -460,7 +460,7 @@ export default function CaseViewerPage({
           {/* CARD 3 — Employee Benefits Detail                            */}
           {/* ============================================================ */}
           <div className="bg-white rounded-2xl shadow-xl shadow-gray-200/60 border border-gray-100 overflow-hidden animate-fade-in-up" style={{ animationDelay: "1200ms" }}>
-            <div className="px-8 pt-8 pb-2">
+            <div className="px-5 pt-7 pb-2 sm:px-8 sm:pt-8">
               <p className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: "#38b6ff" }}>
                 What Your Team Gets
               </p>
@@ -470,7 +470,7 @@ export default function CaseViewerPage({
               <p className="text-xs text-gray-400 mt-1">Healthcare, telehealth, and life insurance — all at $0 out-of-pocket cost.</p>
             </div>
 
-            <div className="px-8 py-6 space-y-6">
+            <div className="px-5 py-6 sm:px-8 space-y-7 sm:space-y-6">
               {/* MEC Services */}
               <div>
                 <h3 className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: "#38b6ff" }}>
@@ -519,7 +519,7 @@ export default function CaseViewerPage({
                   <p className="text-sm font-semibold text-gray-800 mb-3">
                     Up to $250,000 Whole Life Insurance Policy
                   </p>
-                  <div className="space-y-2">
+                  <div className="space-y-3 sm:space-y-2">
                     {[
                       { num: "1", text: "Traditional whole life insurance — beneficiaries receive death benefit as a lump-sum cash payment." },
                       { num: "2", text: "Long-term care services — draw funds from death benefit for monthly long-term care payments." },
@@ -542,7 +542,7 @@ export default function CaseViewerPage({
           {/* CARD 4 — Employer Payroll Savings Detail                     */}
           {/* ============================================================ */}
           <div className="bg-white rounded-2xl shadow-xl shadow-gray-200/60 border border-gray-100 overflow-hidden animate-fade-in-up" style={{ animationDelay: "1300ms" }}>
-            <div className="px-8 pt-8">
+            <div className="px-5 pt-7 sm:px-8 sm:pt-8">
               <p className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: "#38b6ff" }}>
                 Your Bottom Line
               </p>
@@ -552,7 +552,7 @@ export default function CaseViewerPage({
               <p className="text-xs text-gray-400 mt-1">How SIMERP directly reduces payroll costs and increases profitability.</p>
             </div>
 
-            <div className="px-8 py-6 space-y-6">
+            <div className="px-5 py-6 sm:px-8 space-y-5 sm:space-y-6">
               {/* Payroll Savings */}
               <div className="rounded-xl p-6 border" style={{ backgroundColor: "rgba(16,185,129,0.04)", borderColor: "rgba(16,185,129,0.15)" }}>
                 <div className="flex flex-col sm:flex-row sm:items-center gap-4">
@@ -601,7 +601,7 @@ export default function CaseViewerPage({
           {/* CARD 5 — Paycheck Example                                    */}
           {/* ============================================================ */}
           <div className="bg-white rounded-2xl shadow-xl shadow-gray-200/60 border border-gray-100 overflow-hidden animate-fade-in-up" style={{ animationDelay: "1400ms" }}>
-            <div className="px-8 pt-8 pb-2">
+            <div className="px-5 pt-7 pb-2 sm:px-8 sm:pt-8">
               <p className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: "#38b6ff" }}>
                 See It In Action
               </p>
@@ -611,14 +611,14 @@ export default function CaseViewerPage({
               <p className="text-xs text-gray-400 mt-1">Illustrative monthly example showing how take-home pay increases.</p>
             </div>
 
-            <div className="px-8 py-6">
+            <div className="px-3 py-6 sm:px-8">
               <div className="overflow-x-auto rounded-xl border border-gray-200">
-                <table className="w-full text-sm">
+                <table className="w-full text-xs sm:text-sm">
                   <thead>
                     <tr style={{ backgroundColor: "#0b2043" }}>
-                      <th className="text-left px-4 py-3 text-xs font-semibold text-white uppercase tracking-wider">Item</th>
-                      <th className="text-right px-4 py-3 text-xs font-semibold text-white uppercase tracking-wider">Without SIMERP</th>
-                      <th className="text-right px-4 py-3 text-xs font-semibold uppercase tracking-wider" style={{ color: "#38b6ff" }}>With SIMERP</th>
+                      <th className="text-left px-3 py-3 sm:px-4 text-[10px] sm:text-xs font-semibold text-white uppercase tracking-wider">Item</th>
+                      <th className="text-right px-2 py-3 sm:px-4 text-[10px] sm:text-xs font-semibold text-white uppercase tracking-wider whitespace-nowrap">Without</th>
+                      <th className="text-right px-2 py-3 sm:px-4 text-[10px] sm:text-xs font-semibold uppercase tracking-wider whitespace-nowrap" style={{ color: "#38b6ff" }}>With SIMERP</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-100">
@@ -635,36 +635,36 @@ export default function CaseViewerPage({
                       { label: "After-Tax Deduction", without: "$0.00", with: "-$258.14" },
                     ].map((row) => (
                       <tr key={row.label} className={row.highlight ? "bg-blue-50/50" : row.bold ? "bg-gray-50" : ""}>
-                        <td className={`px-4 py-2.5 text-gray-700 ${row.bold || row.highlight ? "font-semibold" : ""}`}>{row.label}</td>
-                        <td className={`px-4 py-2.5 text-right text-gray-500 ${row.bold ? "font-semibold" : ""}`}>{row.without}</td>
-                        <td className={`px-4 py-2.5 text-right ${row.highlight ? "font-semibold" : ""} ${row.bold ? "font-semibold text-gray-900" : ""}`}
+                        <td className={`px-3 py-2.5 sm:px-4 text-gray-700 ${row.bold || row.highlight ? "font-semibold" : ""}`}>{row.label}</td>
+                        <td className={`px-2 py-2.5 sm:px-4 text-right text-gray-500 whitespace-nowrap ${row.bold ? "font-semibold" : ""}`}>{row.without}</td>
+                        <td className={`px-2 py-2.5 sm:px-4 text-right whitespace-nowrap ${row.highlight ? "font-semibold" : ""} ${row.bold ? "font-semibold text-gray-900" : ""}`}
                           style={row.highlight ? { color: "#38b6ff" } : undefined}
                         >{row.with}</td>
                       </tr>
                     ))}
                     {/* Net Take Home - special row */}
                     <tr style={{ backgroundColor: "#0b2043" }}>
-                      <td className="px-4 py-3 font-bold text-white">NET TAKE HOME PAY</td>
-                      <td className="px-4 py-3 text-right font-bold text-gray-300">$2,456.84</td>
-                      <td className="px-4 py-3 text-right font-bold" style={{ color: "#38b6ff" }}>$2,525.90</td>
+                      <td className="px-3 py-3 sm:px-4 font-bold text-white">NET TAKE HOME PAY</td>
+                      <td className="px-2 py-3 sm:px-4 text-right font-bold text-gray-300 whitespace-nowrap">$2,456.84</td>
+                      <td className="px-2 py-3 sm:px-4 text-right font-bold whitespace-nowrap" style={{ color: "#38b6ff" }}>$2,525.90</td>
                     </tr>
                   </tbody>
                 </table>
               </div>
 
               {/* Net impact summary */}
-              <div className="mt-4 grid grid-cols-3 gap-3">
-                <div className="bg-emerald-50 rounded-lg p-3 text-center border border-emerald-100">
-                  <p className="text-xs text-emerald-600 font-medium">Gross Tax Savings</p>
-                  <p className="text-lg font-bold text-emerald-700">+$327.20</p>
+              <div className="mt-5 grid grid-cols-3 gap-2 sm:gap-3">
+                <div className="bg-emerald-50 rounded-lg p-3 sm:p-4 text-center border border-emerald-100">
+                  <p className="text-[10px] sm:text-xs text-emerald-600 font-medium">Gross Tax Savings</p>
+                  <p className="text-base sm:text-lg font-bold text-emerald-700 mt-0.5">+$327.20</p>
                 </div>
-                <div className="bg-gray-50 rounded-lg p-3 text-center border border-gray-100">
-                  <p className="text-xs text-gray-500 font-medium">Supplemental Benefits</p>
-                  <p className="text-lg font-bold text-gray-700">-$258.14</p>
+                <div className="bg-gray-50 rounded-lg p-3 sm:p-4 text-center border border-gray-100">
+                  <p className="text-[10px] sm:text-xs text-gray-500 font-medium">Supplemental Benefits</p>
+                  <p className="text-base sm:text-lg font-bold text-gray-700 mt-0.5">-$258.14</p>
                 </div>
-                <div className="rounded-lg p-3 text-center border" style={{ backgroundColor: "rgba(56,182,255,0.08)", borderColor: "rgba(56,182,255,0.2)" }}>
-                  <p className="text-xs font-medium" style={{ color: "#0b2043" }}>Net Pay Increase</p>
-                  <p className="text-lg font-bold" style={{ color: "#38b6ff" }}>+$69.06</p>
+                <div className="rounded-lg p-3 sm:p-4 text-center border" style={{ backgroundColor: "rgba(56,182,255,0.08)", borderColor: "rgba(56,182,255,0.2)" }}>
+                  <p className="text-[10px] sm:text-xs font-medium" style={{ color: "#0b2043" }}>Net Pay Increase</p>
+                  <p className="text-base sm:text-lg font-bold mt-0.5" style={{ color: "#38b6ff" }}>+$69.06</p>
                 </div>
               </div>
             </div>
@@ -674,7 +674,7 @@ export default function CaseViewerPage({
           {/* CARD 6 — Compliance                                          */}
           {/* ============================================================ */}
           <div className="bg-white rounded-2xl shadow-xl shadow-gray-200/60 border border-gray-100 overflow-hidden animate-fade-in-up" style={{ animationDelay: "1500ms" }}>
-            <div className="px-8 pt-8 pb-2">
+            <div className="px-5 pt-7 pb-2 sm:px-8 sm:pt-8">
               <p className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: "#38b6ff" }}>
                 Legal Foundation
               </p>
@@ -688,8 +688,8 @@ export default function CaseViewerPage({
               </p>
             </div>
 
-            <div className="px-8 py-6">
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <div className="px-5 py-6 sm:px-8">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3">
                 {[
                   { label: "Wellness", codes: "IRC §106(a), §213(d), §105(b), ERISA, HIPAA, ADA" },
                   { label: "Medical", codes: "IRC §213(d), ACA" },
@@ -710,8 +710,8 @@ export default function CaseViewerPage({
           {/* ============================================================ */}
           <div className="bg-white rounded-2xl shadow-xl shadow-gray-200/60 border border-gray-100 overflow-hidden animate-fade-in-up" style={{ animationDelay: "1600ms" }}>
             {/* Calculation Details */}
-            <div className="px-8 pt-8 pb-6">
-              <div className="bg-gray-50 rounded-xl p-5 border border-gray-100">
+            <div className="px-5 pt-7 pb-5 sm:px-8 sm:pt-8 sm:pb-6">
+              <div className="bg-gray-50 rounded-xl p-4 sm:p-5 border border-gray-100">
                 <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-3">
                   Calculation Details
                 </h3>
@@ -722,7 +722,7 @@ export default function CaseViewerPage({
             </div>
 
             {/* Disclaimer */}
-            <div className="px-8 pb-8">
+            <div className="px-5 pb-7 sm:px-8 sm:pb-8">
               <div className="border-t border-gray-100 pt-5">
                 <h4 className="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-2">
                   Disclaimer
@@ -810,7 +810,7 @@ export default function CaseViewerPage({
           state === "submitting") && (
           <div className="animate-scale-in">
             <div className="bg-white rounded-2xl shadow-xl shadow-gray-200/60 border border-gray-100 overflow-hidden">
-              <div className="px-6 py-6 flex justify-center" style={{ background: "linear-gradient(135deg, #0b2043 0%, #0b2043 50%, #1a3a6b 100%)" }}>
+              <div className="px-5 py-5 sm:px-6 sm:py-6 flex justify-center" style={{ background: "linear-gradient(135deg, #0b2043 0%, #0b2043 50%, #1a3a6b 100%)" }}>
                 <Image
                   src="/logo-full-white.png"
                   alt="First Gen Industries"
@@ -820,7 +820,7 @@ export default function CaseViewerPage({
                   priority
                 />
               </div>
-              <div className="p-8">
+              <div className="p-5 sm:p-8">
                 <div className="text-center mb-6">
                   <div className="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-4 animate-pulse-soft" style={{ backgroundColor: "#eef8ff" }}>
                     <svg
@@ -983,8 +983,8 @@ function PageShell({
 }) {
   const year = new Date().getFullYear();
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100/80 flex flex-col items-center justify-center p-4">
-      <div className="flex-1 flex items-center justify-center w-full py-8">
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100/80 flex flex-col items-center justify-center px-3 py-4 sm:p-4">
+      <div className="flex-1 flex items-center justify-center w-full py-6 sm:py-8">
         {children}
       </div>
       <footer
