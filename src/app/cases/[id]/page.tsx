@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { formatUSD } from "@/lib/format";
 
@@ -8,16 +8,7 @@ import { formatUSD } from "@/lib/format";
 // Types
 // ---------------------------------------------------------------------------
 
-type ViewState =
-  | "idle"
-  | "submitting"
-  | "success"
-  | "invalid"
-  | "expired"
-  | "revoked"
-  | "locked"
-  | "wrong_passcode"
-  | "error";
+type ViewState = "loading" | "success" | "invalid" | "expired" | "revoked" | "error";
 
 interface CaseData {
   company_name: string;
@@ -48,13 +39,9 @@ function useCountUp(target: number, duration = 1200, enabled = true) {
     const step = (now: number) => {
       const elapsed = now - startTime;
       const progress = Math.min(elapsed / duration, 1);
-      // ease-out cubic
       const eased = 1 - Math.pow(1 - progress, 3);
-      const current = Math.round(eased * target);
-      setValue(current);
-      if (progress < 1) {
-        start = requestAnimationFrame(step);
-      }
+      setValue(Math.round(eased * target));
+      if (progress < 1) start = requestAnimationFrame(step);
     };
     start = requestAnimationFrame(step);
     return () => cancelAnimationFrame(start);
@@ -73,161 +60,98 @@ export default function CaseViewerPage({
   params: Promise<{ id: string }>;
   searchParams: Promise<{ t?: string }>;
 }) {
-  const [caseId, setCaseId] = useState<string>("");
-  const [token, setToken] = useState<string>("");
-  const [digits, setDigits] = useState<string[]>(Array(6).fill(""));
-  const [state, setState] = useState<ViewState>("idle");
+  const [state, setState] = useState<ViewState>("loading");
   const [caseData, setCaseData] = useState<CaseData | null>(null);
-  const [remainingAttempts, setRemainingAttempts] = useState<number | null>(
-    null
-  );
-  const [errorMessage, setErrorMessage] = useState("");
-  const [shake, setShake] = useState(false);
-  const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
-  // Resolve params and searchParams (they are Promises in Next.js 15+)
+  // Auto-validate on mount
   useEffect(() => {
-    Promise.all([params, searchParams]).then(([p, sp]) => {
-      setCaseId(p.id);
-      setToken(sp.t || "");
-    });
-  }, [params, searchParams]);
+    let cancelled = false;
 
-  // ---------------------------------------------------------------------------
-  // Passcode input handling
-  // ---------------------------------------------------------------------------
+    async function validate() {
+      const [p, sp] = await Promise.all([params, searchParams]);
+      const caseId = p.id;
+      const token = sp.t;
 
-  const handleDigitChange = useCallback(
-    (index: number, value: string) => {
-      if (!/^\d*$/.test(value)) return;
-      const newDigits = [...digits];
-      newDigits[index] = value.slice(-1);
-      setDigits(newDigits);
-      if (value && index < 5) {
-        inputRefs.current[index + 1]?.focus();
+      if (!caseId || !token) {
+        if (!cancelled) setState("invalid");
+        return;
       }
-    },
-    [digits]
-  );
-
-  const handleKeyDown = useCallback(
-    (index: number, e: React.KeyboardEvent<HTMLInputElement>) => {
-      if (e.key === "Backspace" && !digits[index] && index > 0) {
-        inputRefs.current[index - 1]?.focus();
-      }
-    },
-    [digits]
-  );
-
-  const handlePaste = useCallback((e: React.ClipboardEvent) => {
-    e.preventDefault();
-    const pasted = e.clipboardData
-      .getData("text")
-      .replace(/\D/g, "")
-      .slice(0, 6);
-    if (pasted.length === 0) return;
-    const newDigits = Array(6).fill("");
-    for (let i = 0; i < pasted.length; i++) {
-      newDigits[i] = pasted[i];
-    }
-    setDigits(newDigits);
-    const focusIdx = Math.min(pasted.length, 5);
-    inputRefs.current[focusIdx]?.focus();
-  }, []);
-
-  // ---------------------------------------------------------------------------
-  // Submit
-  // ---------------------------------------------------------------------------
-
-  const handleSubmit = useCallback(
-    async (e: React.FormEvent) => {
-      e.preventDefault();
-      const passcode = digits.join("");
-      if (passcode.length !== 6) return;
-
-      setState("submitting");
-      setErrorMessage("");
 
       try {
-        const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-        const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-
-        const res = await fetch(
-          `${supabaseUrl}/functions/v1/validate_case_access`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${anonKey}`,
-              apikey: anonKey || "",
-            },
-            body: JSON.stringify({ case_id: caseId, token, passcode }),
-          }
-        );
+        const res = await fetch("/api/validate", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ case_id: caseId, token }),
+        });
 
         const json = await res.json();
+        if (cancelled) return;
 
         if (json.ok && json.state === "success") {
-          setState("success");
           setCaseData(json.data);
+          setState("success");
         } else {
           setState(json.state || "error");
-          if (json.state === "wrong_passcode") {
-            setShake(true);
-            setTimeout(() => setShake(false), 500);
-          }
-          if (json.remaining_attempts !== undefined) {
-            setRemainingAttempts(json.remaining_attempts);
-          }
         }
       } catch {
-        setState("error");
-        setErrorMessage("Unable to verify. Please try again.");
+        if (!cancelled) setState("error");
       }
-    },
-    [caseId, token, digits]
-  );
+    }
 
-  const handleRetry = useCallback(() => {
-    setDigits(Array(6).fill(""));
-    setState("idle");
-    setRemainingAttempts(null);
-    inputRefs.current[0]?.focus();
-  }, []);
+    validate();
+    return () => { cancelled = true; };
+  }, [params, searchParams]);
 
-  // ---------------------------------------------------------------------------
-  // Animated counters for success view
-  // ---------------------------------------------------------------------------
-
+  // Animated counters
   const isSuccess = state === "success" && caseData;
   const animTotal = useCountUp(caseData?.calc_total ?? 0, 1400, !!isSuccess);
   const animEr = useCountUp(caseData?.calc_er ?? 0, 1200, !!isSuccess);
   const animEe = useCountUp(caseData?.calc_ee ?? 0, 1200, !!isSuccess);
 
   // ---------------------------------------------------------------------------
-  // Guard: missing token
+  // Loading state
   // ---------------------------------------------------------------------------
 
-  if (!caseId) {
+  if (state === "loading") {
+    return <PageShell><LoadingSpinner /></PageShell>;
+  }
+
+  // ---------------------------------------------------------------------------
+  // Error states
+  // ---------------------------------------------------------------------------
+
+  if (state === "invalid" || state === "error") {
     return (
       <PageShell>
-        <LoadingSpinner />
+        <div className="animate-scale-in">
+          <StatusCard title="Invalid Link" message="This link is not valid or does not exist. Please check the link you received." variant="error" />
+        </div>
       </PageShell>
     );
   }
 
-  if (!token) {
+  if (state === "expired") {
     return (
       <PageShell>
         <div className="animate-scale-in">
-          <StatusCard
-            title="Invalid Link"
-            message="This link is missing required parameters. Please check the link you received."
-            variant="error"
-          />
+          <StatusCard title="Link Expired" message="This proposal link has expired. Please request a new one from your contact." variant="warning" />
         </div>
       </PageShell>
     );
+  }
+
+  if (state === "revoked") {
+    return (
+      <PageShell>
+        <div className="animate-scale-in">
+          <StatusCard title="Link Revoked" message="This link has been revoked. A new link may have been issued — please check with your contact." variant="warning" />
+        </div>
+      </PageShell>
+    );
+  }
+
+  if (!caseData) {
+    return <PageShell><LoadingSpinner /></PageShell>;
   }
 
   // ---------------------------------------------------------------------------
@@ -743,231 +667,6 @@ export default function CaseViewerPage({
     );
   }
 
-  // ---------------------------------------------------------------------------
-  // Passcode / error states
-  // ---------------------------------------------------------------------------
-
-  return (
-    <PageShell>
-      <div className="w-full max-w-md mx-auto">
-        {/* Error states */}
-        {state === "invalid" && (
-          <div className="animate-scale-in">
-            <StatusCard
-              title="Invalid Link"
-              message="This link is not valid. It may have been revoked or does not exist."
-              variant="error"
-            />
-          </div>
-        )}
-
-        {state === "expired" && (
-          <div className="animate-scale-in">
-            <StatusCard
-              title="Link Expired"
-              message="This link has expired. Please request a new one from your contact."
-              variant="warning"
-            />
-          </div>
-        )}
-
-        {state === "revoked" && (
-          <div className="animate-scale-in">
-            <StatusCard
-              title="Link Revoked"
-              message="This link has been revoked. A new link may have been issued — please check with your contact."
-              variant="warning"
-            />
-          </div>
-        )}
-
-        {state === "locked" && (
-          <div className="animate-scale-in">
-            <StatusCard
-              title="Too Many Attempts"
-              message="This link has been temporarily locked due to too many incorrect attempts. Please try again in 30 minutes."
-              variant="error"
-            />
-          </div>
-        )}
-
-        {state === "error" && (
-          <div className="animate-scale-in">
-            <StatusCard
-              title="Something Went Wrong"
-              message={
-                errorMessage ||
-                "An unexpected error occurred. Please try again."
-              }
-              variant="error"
-            />
-          </div>
-        )}
-
-        {/* Passcode form */}
-        {(state === "idle" ||
-          state === "wrong_passcode" ||
-          state === "submitting") && (
-          <div className="animate-scale-in">
-            <div className="bg-white rounded-2xl shadow-xl shadow-gray-200/60 border border-gray-100 overflow-hidden">
-              <div className="px-5 py-5 sm:px-6 sm:py-6 flex justify-center" style={{ background: "linear-gradient(135deg, #0b2043 0%, #0b2043 50%, #1a3a6b 100%)" }}>
-                <Image
-                  src="/logo-full-white.png"
-                  alt="First Gen Industries"
-                  width={160}
-                  height={36}
-                  className="animate-fade-in-down"
-                  priority
-                />
-              </div>
-              <div className="p-5 sm:p-8">
-                <div className="text-center mb-6">
-                  <div className="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-4 animate-pulse-soft" style={{ backgroundColor: "#eef8ff" }}>
-                    <svg
-                      className="w-7 h-7"
-                      style={{ color: "#38b6ff" }}
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={1.5}
-                        d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
-                      />
-                    </svg>
-                  </div>
-                  <h1 className="text-xl font-semibold text-gray-900">
-                    Enter Passcode
-                  </h1>
-                  <p className="text-sm text-gray-500 mt-1">
-                    Enter the 6-digit passcode you were given
-                  </p>
-                </div>
-
-                {state === "wrong_passcode" && (
-                  <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg text-center animate-fade-in">
-                    <p className="text-sm text-red-700 font-medium">
-                      Incorrect passcode
-                    </p>
-                    {remainingAttempts !== null && (
-                      <p className="text-xs text-red-500 mt-1">
-                        {remainingAttempts} attempt
-                        {remainingAttempts !== 1 ? "s" : ""} remaining
-                      </p>
-                    )}
-                  </div>
-                )}
-
-                <form onSubmit={handleSubmit}>
-                  <div
-                    className={`flex justify-center gap-2.5 mb-6 transition-transform ${
-                      shake ? "animate-[shake_0.4s_ease-in-out]" : ""
-                    }`}
-                    onPaste={handlePaste}
-                    style={
-                      shake
-                        ? {
-                            animation:
-                              "shake 0.4s cubic-bezier(0.36, 0.07, 0.19, 0.97) both",
-                          }
-                        : undefined
-                    }
-                  >
-                    {digits.map((digit, i) => (
-                      <input
-                        key={i}
-                        ref={(el) => {
-                          inputRefs.current[i] = el;
-                        }}
-                        type="text"
-                        inputMode="numeric"
-                        maxLength={1}
-                        value={digit}
-                        onChange={(e) => handleDigitChange(i, e.target.value)}
-                        onKeyDown={(e) => handleKeyDown(i, e)}
-                        className={`w-12 h-14 text-center text-xl font-semibold border-2 rounded-lg outline-none
-                          transition-all duration-200 ease-out
-                          ${
-                            digit
-                              ? "scale-105"
-                              : "border-gray-200 bg-white"
-                          }
-                          focus:scale-110
-                          disabled:opacity-50`}
-                        style={{
-                          animationDelay: `${i * 50}ms`,
-                          ...(digit ? { borderColor: "#38b6ff", backgroundColor: "rgba(56,182,255,0.08)" } : {}),
-                        }}
-                        disabled={state === "submitting"}
-                        autoFocus={i === 0}
-                      />
-                    ))}
-                  </div>
-
-                  <button
-                    type="submit"
-                    disabled={
-                      digits.join("").length !== 6 || state === "submitting"
-                    }
-                    className="w-full py-3.5 px-4 active:scale-[0.98]
-                      disabled:bg-gray-300 disabled:cursor-not-allowed disabled:active:scale-100
-                      text-white font-medium rounded-xl transition-all duration-200 ease-out"
-                    style={
-                      digits.join("").length !== 6 || state === "submitting"
-                        ? undefined
-                        : { backgroundColor: "#0b2043", boxShadow: "0 10px 15px -3px rgba(11,32,67,0.2)" }
-                    }
-                  >
-                    {state === "submitting" ? (
-                      <span className="flex items-center justify-center gap-2">
-                        <svg
-                          className="animate-spin h-4 w-4"
-                          viewBox="0 0 24 24"
-                        >
-                          <circle
-                            className="opacity-25"
-                            cx="12"
-                            cy="12"
-                            r="10"
-                            stroke="currentColor"
-                            strokeWidth="4"
-                            fill="none"
-                          />
-                          <path
-                            className="opacity-75"
-                            fill="currentColor"
-                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
-                          />
-                        </svg>
-                        Verifying...
-                      </span>
-                    ) : (
-                      "Verify"
-                    )}
-                  </button>
-                </form>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Retry for non-locked error states */}
-        {(state === "error" || state === "invalid") && (
-          <div className="text-center mt-4 animate-fade-in" style={{ animationDelay: "300ms" }}>
-            <button
-              onClick={handleRetry}
-              className="text-sm underline transition-colors"
-              style={{ color: "#38b6ff" }}
-            >
-              Try again
-            </button>
-          </div>
-        )}
-      </div>
-    </PageShell>
-  );
 }
 
 // ---------------------------------------------------------------------------
