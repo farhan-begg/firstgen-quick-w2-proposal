@@ -253,7 +253,9 @@ export default function CaseViewerPage({
                   <p className="text-3xl sm:text-4xl font-bold text-emerald-700 mt-1">
                     {formatUSD(animEr)}
                   </p>
-                  {/* rate subtitle removed */}
+                  <p className="text-xs text-emerald-500 mt-2">
+                    {formatUSD(caseData.calc_inputs.rate_er)} per W-2
+                  </p>
                 </div>
                 <div
                   className="bg-sky-50 border border-sky-100 rounded-xl p-6 animate-slide-up hover:shadow-md hover:shadow-sky-100/50 transition-shadow duration-300"
