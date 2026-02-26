@@ -228,12 +228,7 @@ export default function CaseViewerPage({
               >
                 {formatUSD(animTotal)}
               </p>
-              <p
-                className="text-sm text-gray-400 mt-3 animate-fade-in"
-                style={{ animationDelay: "800ms" }}
-              >
-                {formatUSD(caseData.calc_inputs.rate_total)} per W-2 &times; {w2} employees
-              </p>
+              {/* rate subtitle removed */}
             </div>
 
             {/* Breakdown Cards */}
@@ -258,9 +253,7 @@ export default function CaseViewerPage({
                   <p className="text-3xl sm:text-4xl font-bold text-emerald-700 mt-1">
                     {formatUSD(animEr)}
                   </p>
-                  <p className="text-xs text-emerald-500 mt-2">
-                    {formatUSD(caseData.calc_inputs.rate_er)} per W-2
-                  </p>
+                  {/* rate subtitle removed */}
                 </div>
                 <div
                   className="bg-sky-50 border border-sky-100 rounded-xl p-6 animate-slide-up hover:shadow-md hover:shadow-sky-100/50 transition-shadow duration-300"
@@ -275,9 +268,7 @@ export default function CaseViewerPage({
                   <p className="text-3xl sm:text-4xl font-bold text-sky-700 mt-1">
                     {formatUSD(animEe)}
                   </p>
-                  <p className="text-xs text-sky-500 mt-2">
-                    {formatUSD(caseData.calc_inputs.rate_ee)} per W-2
-                  </p>
+                  {/* rate subtitle removed */}
                 </div>
               </div>
             </div>

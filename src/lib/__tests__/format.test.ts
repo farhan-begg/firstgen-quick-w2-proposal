@@ -44,8 +44,8 @@ describe("formatUSD", () => {
   });
 
   it("formats the exact per-W2 rates correctly", () => {
-    expect(formatUSD(3357)).toBe("$3,357.00");
-    expect(formatUSD(1187)).toBe("$1,187.00");
+    expect(formatUSD(3356)).toBe("$3,356.00");
+    expect(formatUSD(1186)).toBe("$1,186.00");
     expect(formatUSD(2170)).toBe("$2,170.00");
   });
 });

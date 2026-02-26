@@ -4,22 +4,22 @@ import { calculateSavings, validateInput } from "../calculator";
 describe("calculateSavings", () => {
   it("calculates correctly for 1 W-2", () => {
     const result = calculateSavings(1);
-    expect(result.calc_total).toBe(3357);
-    expect(result.calc_er).toBe(1187);
+    expect(result.calc_total).toBe(3356);
+    expect(result.calc_er).toBe(1186);
     expect(result.calc_ee).toBe(2170);
   });
 
   it("calculates correctly for 20 W-2s", () => {
     const result = calculateSavings(20);
-    expect(result.calc_total).toBe(67140);
-    expect(result.calc_er).toBe(23740);
+    expect(result.calc_total).toBe(67120);
+    expect(result.calc_er).toBe(23720);
     expect(result.calc_ee).toBe(43400);
   });
 
   it("calculates correctly for 100 W-2s", () => {
     const result = calculateSavings(100);
-    expect(result.calc_total).toBe(335700);
-    expect(result.calc_er).toBe(118700);
+    expect(result.calc_total).toBe(335600);
+    expect(result.calc_er).toBe(118600);
     expect(result.calc_ee).toBe(217000);
   });
 
@@ -32,8 +32,8 @@ describe("calculateSavings", () => {
 
   it("stores the correct rates in calc_inputs", () => {
     const result = calculateSavings(10);
-    expect(result.calc_inputs.rate_total).toBe(3357);
-    expect(result.calc_inputs.rate_er).toBe(1187);
+    expect(result.calc_inputs.rate_total).toBe(3356);
+    expect(result.calc_inputs.rate_er).toBe(1186);
     expect(result.calc_inputs.rate_ee).toBe(2170);
   });
 
@@ -51,12 +51,12 @@ describe("calculateSavings", () => {
     const result = calculateSavings(10);
     expect(result.calc_explanation).toBeTruthy();
     expect(result.calc_explanation).toContain("10 W-2 employees");
-    expect(result.calc_explanation).toContain("$33,570.00");
+    expect(result.calc_explanation).toContain("$33,560.00");
   });
 
   it("handles edge case of very large W-2 count", () => {
     const result = calculateSavings(100000);
-    expect(result.calc_total).toBe(335700000);
+    expect(result.calc_total).toBe(335600000);
     expect(result.calc_er + result.calc_ee).toBe(result.calc_total);
   });
 });

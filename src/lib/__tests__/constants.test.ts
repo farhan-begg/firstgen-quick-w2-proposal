@@ -15,12 +15,12 @@ describe("constants", () => {
     expect(Number.isInteger(RATE_EE)).toBe(true);
   });
 
-  it("Total rate is $3,357", () => {
-    expect(RATE_TOTAL).toBe(3357);
+  it("Total rate is $3,356", () => {
+    expect(RATE_TOTAL).toBe(3356);
   });
 
-  it("ER rate is $1,187", () => {
-    expect(RATE_ER).toBe(1187);
+  it("ER rate is $1,186", () => {
+    expect(RATE_ER).toBe(1186);
   });
 
   it("EE rate is $2,170", () => {
