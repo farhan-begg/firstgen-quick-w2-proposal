@@ -213,22 +213,27 @@ export default function CaseViewerPage({
 
             {/* Hero Number */}
             <div
-              className="px-5 py-8 sm:px-8 sm:py-10 text-center border-b border-gray-100"
-              style={{ background: "linear-gradient(to bottom, #eef8ff, #ffffff)" }}
+              className="px-5 py-8 sm:px-8 sm:py-10 text-center border-b border-emerald-100"
+              style={{ background: "linear-gradient(to bottom, #ecfdf5, #ffffff)" }}
             >
               <p
-                className="text-xs font-semibold uppercase tracking-widest mb-3 animate-fade-in"
-                style={{ animationDelay: "400ms", color: "#0b2043" }}
+                className="text-xs font-semibold text-emerald-700 uppercase tracking-widest mb-3 animate-fade-in"
+                style={{ animationDelay: "400ms" }}
               >
-                Estimated Total Tax Reduction
+                Employer Net Savings
               </p>
               <p
-                className="text-5xl sm:text-6xl font-extrabold text-gray-900 tracking-tight animate-number-pop"
+                className="text-5xl sm:text-6xl font-extrabold text-emerald-700 tracking-tight animate-number-pop"
                 style={{ animationDelay: "500ms" }}
               >
-                {formatUSD(animTotal)}
+                {formatUSD(animEr)}
               </p>
-              {/* rate subtitle removed */}
+              <p
+                className="text-sm text-emerald-500 mt-3 animate-fade-in"
+                style={{ animationDelay: "800ms" }}
+              >
+                {formatUSD(caseData.calc_inputs.rate_er)} per W-2
+              </p>
             </div>
 
             {/* Breakdown Cards */}
@@ -241,21 +246,19 @@ export default function CaseViewerPage({
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div
-                  className="bg-emerald-50 border border-emerald-100 rounded-xl p-6 animate-slide-up hover:shadow-md hover:shadow-emerald-100/50 transition-shadow duration-300"
+                  className="bg-gray-50 border border-gray-200 rounded-xl p-6 animate-slide-up hover:shadow-md hover:shadow-gray-100/50 transition-shadow duration-300"
                   style={{ animationDelay: "800ms" }}
                 >
                   <div className="flex items-center gap-2 mb-2">
-                    <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse-soft" />
-                    <p className="text-xs font-semibold text-emerald-700 uppercase tracking-wider">
-                      Employer Net Savings
+                    <div className="w-2.5 h-2.5 rounded-full bg-gray-500 animate-pulse-soft" />
+                    <p className="text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                      Estimated Total Tax Reduction
                     </p>
                   </div>
-                  <p className="text-3xl sm:text-4xl font-bold text-emerald-700 mt-1">
-                    {formatUSD(animEr)}
+                  <p className="text-3xl sm:text-4xl font-bold text-gray-900 mt-1">
+                    {formatUSD(animTotal)}
                   </p>
-                  <p className="text-xs text-emerald-500 mt-2">
-                    {formatUSD(caseData.calc_inputs.rate_er)} per W-2
-                  </p>
+                  {/* rate subtitle removed */}
                 </div>
                 <div
                   className="bg-sky-50 border border-sky-100 rounded-xl p-6 animate-slide-up hover:shadow-md hover:shadow-sky-100/50 transition-shadow duration-300"
