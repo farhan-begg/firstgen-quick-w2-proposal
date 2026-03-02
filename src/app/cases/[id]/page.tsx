@@ -223,7 +223,7 @@ export default function CaseViewerPage({
                 Employer Net Savings
               </p>
               <p
-                className="text-5xl sm:text-6xl font-extrabold text-emerald-700 tracking-tight animate-number-pop"
+                className="text-5xl sm:text-6xl font-display font-normal text-emerald-700 tracking-tight animate-number-pop"
                 style={{ animationDelay: "500ms" }}
               >
                 {formatUSD(animEr)}
@@ -255,7 +255,7 @@ export default function CaseViewerPage({
                       Estimated Total Tax Reduction
                     </p>
                   </div>
-                  <p className="text-3xl sm:text-4xl font-bold text-gray-900 mt-1">
+                  <p className="text-3xl sm:text-4xl font-display font-normal text-gray-900 mt-1">
                     {formatUSD(animTotal)}
                   </p>
                   {/* rate subtitle removed */}
@@ -270,7 +270,7 @@ export default function CaseViewerPage({
                       Employee Reduction
                     </p>
                   </div>
-                  <p className="text-3xl sm:text-4xl font-bold text-sky-700 mt-1">
+                  <p className="text-3xl sm:text-4xl font-display font-normal text-sky-700 mt-1">
                     {formatUSD(animEe)}
                   </p>
                   {/* rate subtitle removed */}
@@ -294,7 +294,7 @@ export default function CaseViewerPage({
                   className="rounded-xl py-4 px-3 sm:py-5 sm:px-4 text-center border"
                   style={{ backgroundColor: "rgba(11,32,67,0.03)", borderColor: "rgba(11,32,67,0.08)" }}
                 >
-                  <p className="text-xl sm:text-3xl font-extrabold" style={{ color: "#0b2043" }}>
+                  <p className="text-xl sm:text-3xl font-display font-normal" style={{ color: "#0b2043" }}>
                     {stat.value}
                   </p>
                   <p className="text-[10px] sm:text-xs text-gray-500 mt-1 font-medium">{stat.label}</p>
@@ -477,7 +477,7 @@ export default function CaseViewerPage({
               <div className="rounded-xl p-6 border" style={{ backgroundColor: "rgba(16,185,129,0.04)", borderColor: "rgba(16,185,129,0.15)" }}>
                 <div className="flex flex-col sm:flex-row sm:items-center gap-4">
                   <div className="text-center sm:text-left shrink-0">
-                    <p className="text-3xl font-extrabold" style={{ color: "#0b2043" }}>$1,186<span className="text-base font-medium text-gray-400">/yr</span></p>
+                    <p className="text-3xl font-display font-normal" style={{ color: "#0b2043" }}>$1,186<span className="text-base font-sans font-medium text-gray-400">/yr</span></p>
                     <p className="text-xs text-gray-500 mt-1">Avg. Employer Tax Savings<br />Per Employee, Per Year</p>
                   </div>
                   <div className="sm:border-l sm:border-gray-200 sm:pl-4">
@@ -565,8 +565,8 @@ export default function CaseViewerPage({
                     {/* Net Take Home - special row */}
                     <tr style={{ backgroundColor: "#0b2043" }}>
                       <td className="px-3 py-3 sm:px-4 font-bold text-white">NET TAKE HOME PAY</td>
-                      <td className="px-2 py-3 sm:px-4 text-right font-bold text-gray-300 whitespace-nowrap">$2,456.84</td>
-                      <td className="px-2 py-3 sm:px-4 text-right font-bold whitespace-nowrap" style={{ color: "#38b6ff" }}>$2,525.90</td>
+                      <td className="px-2 py-3 sm:px-4 text-right font-display font-normal text-gray-300 whitespace-nowrap">$2,456.84</td>
+                      <td className="px-2 py-3 sm:px-4 text-right font-display font-normal whitespace-nowrap" style={{ color: "#38b6ff" }}>$2,525.90</td>
                     </tr>
                   </tbody>
                 </table>
@@ -576,15 +576,15 @@ export default function CaseViewerPage({
               <div className="mt-5 grid grid-cols-3 gap-2 sm:gap-3">
                 <div className="bg-emerald-50 rounded-lg p-3 sm:p-4 text-center border border-emerald-100">
                   <p className="text-[10px] sm:text-xs text-emerald-600 font-medium">Gross Tax Savings</p>
-                  <p className="text-base sm:text-lg font-bold text-emerald-700 mt-0.5">+$327.20</p>
+                  <p className="text-base sm:text-lg font-display font-normal text-emerald-700 mt-0.5">+$327.20</p>
                 </div>
                 <div className="bg-gray-50 rounded-lg p-3 sm:p-4 text-center border border-gray-100">
                   <p className="text-[10px] sm:text-xs text-gray-500 font-medium">Supplemental Benefits</p>
-                  <p className="text-base sm:text-lg font-bold text-gray-700 mt-0.5">-$258.14</p>
+                  <p className="text-base sm:text-lg font-display font-normal text-gray-700 mt-0.5">-$258.14</p>
                 </div>
                 <div className="rounded-lg p-3 sm:p-4 text-center border" style={{ backgroundColor: "rgba(56,182,255,0.08)", borderColor: "rgba(56,182,255,0.2)" }}>
                   <p className="text-[10px] sm:text-xs font-medium" style={{ color: "#0b2043" }}>Net Pay Increase</p>
-                  <p className="text-base sm:text-lg font-bold mt-0.5" style={{ color: "#38b6ff" }}>+$69.06</p>
+                  <p className="text-base sm:text-lg font-display font-normal mt-0.5" style={{ color: "#38b6ff" }}>+$69.06</p>
                 </div>
               </div>
             </div>
