@@ -173,7 +173,7 @@ export default function CaseViewerPage({
             {/* Header */}
             <div
               className="px-5 py-7 sm:px-8 sm:py-8 animate-fade-in"
-              style={{ background: "linear-gradient(135deg, #38b6ff 0%, #38b6ff 40%, #0b2043 100%)" }}
+              style={{ background: "linear-gradient(135deg, #0b2043 0%, #38b6ff 60%, #38b6ff 100%)" }}
             >
               <Image
                 src="/logo-white.png"
@@ -211,33 +211,7 @@ export default function CaseViewerPage({
               </div>
             </div>
 
-            {/* SIMERP Trust Bar */}
-            <div className="px-5 py-7 sm:px-8 sm:py-8">
-              <div className="grid grid-cols-3 gap-2 sm:gap-3">
-                {[
-                  { value: "10,000+", label: "Employers Served" },
-                  { value: "50", label: "States Covered" },
-                  { value: "1M+", label: "Members Enrolled" },
-                ].map((stat) => (
-                  <div
-                    key={stat.label}
-                    className="rounded-xl py-4 px-3 sm:py-5 sm:px-4 text-center border"
-                    style={{ backgroundColor: "rgba(11,32,67,0.03)", borderColor: "rgba(11,32,67,0.08)" }}
-                  >
-                    <p className="text-xl sm:text-3xl font-display font-normal" style={{ color: "#0b2043" }}>
-                      {stat.value}
-                    </p>
-                    <p className="text-[10px] sm:text-xs text-gray-500 mt-1 font-medium">{stat.label}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* ============================================================ */}
-          {/* CARD 2 — What is SIMERP?                                     */}
-          {/* ============================================================ */}
-          <div className="bg-white rounded-2xl shadow-xl shadow-gray-200/60 border border-gray-100 overflow-hidden animate-fade-in-up" style={{ animationDelay: "600ms" }}>
+            {/* What is SIMERP — inside Card 1 */}
             <div className="px-5 pt-7 pb-2 sm:px-8 sm:pt-8">
               <p className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: "#38b6ff" }}>
                 Overview
@@ -310,7 +284,7 @@ export default function CaseViewerPage({
           {/* ============================================================ */}
           {/* CARD — Employer Net Savings + Breakdown                      */}
           {/* ============================================================ */}
-          <div className="bg-white rounded-2xl shadow-xl shadow-gray-200/60 border border-gray-100 overflow-hidden animate-fade-in-up" style={{ animationDelay: "800ms" }}>
+          <div className="bg-white rounded-2xl shadow-xl shadow-gray-200/60 border border-gray-100 overflow-hidden animate-fade-in-up" style={{ animationDelay: "600ms" }}>
             {/* Hero Number */}
             <div
               className="px-5 py-8 sm:px-8 sm:py-10 text-center border-b border-emerald-100"
@@ -376,6 +350,30 @@ export default function CaseViewerPage({
                   {/* rate subtitle removed */}
                 </div>
               </div>
+            </div>
+          </div>
+
+          {/* ============================================================ */}
+          {/* TRUST BAR — Social Proof                                     */}
+          {/* ============================================================ */}
+          <div className="animate-fade-in-up" style={{ animationDelay: "800ms" }}>
+            <div className="grid grid-cols-3 gap-2 sm:gap-3">
+              {[
+                { value: "10,000+", label: "Employers Served" },
+                { value: "50", label: "States Covered" },
+                { value: "1M+", label: "Members Enrolled" },
+              ].map((stat) => (
+                <div
+                  key={stat.label}
+                  className="rounded-xl py-4 px-3 sm:py-5 sm:px-4 text-center border"
+                  style={{ backgroundColor: "rgba(11,32,67,0.03)", borderColor: "rgba(11,32,67,0.08)" }}
+                >
+                  <p className="text-xl sm:text-3xl font-display font-normal" style={{ color: "#0b2043" }}>
+                    {stat.value}
+                  </p>
+                  <p className="text-[10px] sm:text-xs text-gray-500 mt-1 font-medium">{stat.label}</p>
+                </div>
+              ))}
             </div>
           </div>
 
