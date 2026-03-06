@@ -187,7 +187,7 @@ export default function CaseViewerPage({
                 className="text-xs font-medium uppercase tracking-widest mb-1 animate-fade-in-up"
                 style={{ animationDelay: "100ms", color: "rgba(255,255,255,0.7)" }}
               >
-                SIMERP Tax Savings Proposal
+                SIMERP Savings Proposal
               </p>
               <h1
                 className="text-2xl font-bold text-white animate-fade-in-up"
