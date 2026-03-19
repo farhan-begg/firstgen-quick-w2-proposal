@@ -187,7 +187,7 @@ export default function CaseViewerPage({
                 className="text-xs font-medium uppercase tracking-widest mb-1 animate-fade-in-up"
                 style={{ animationDelay: "100ms", color: "rgba(255,255,255,0.7)" }}
               >
-                SIMERP Savings Proposal
+                SIMERP Proposal
               </p>
               <h1
                 className="text-2xl font-bold text-white animate-fade-in-up"
@@ -206,7 +206,7 @@ export default function CaseViewerPage({
                   {caseData.industry}
                 </span>
                 <span style={{ color: "rgba(255,255,255,0.7)" }} className="text-xs">
-                  {w2} W-2 Employees &middot; Tax Year {year}
+                  {w2} W-2 Employees
                 </span>
               </div>
             </div>
@@ -219,7 +219,7 @@ export default function CaseViewerPage({
               <h2 className="text-lg font-bold text-gray-900" style={{ color: "#0b2043" }}>
                 What is SIMERP?
               </h2>
-              <p className="text-xs text-gray-400 mt-1">A proven program that saves employers money while giving employees better benefits.</p>
+              <p className="text-xs text-gray-400 mt-1">A proven program offers employees access to affordable coverage.</p>
               <p className="text-sm text-gray-600 mt-4 leading-relaxed">
                 A <span className="font-semibold">Self Insured Medical Expense Reimbursement Plan (SIMERP)</span> is
                 an employer-sponsored workplace program that allows employees to supplement their
@@ -281,29 +281,7 @@ export default function CaseViewerPage({
             </div>
           </div>
 
-          {/* ============================================================ */}
-          {/* TRUST BAR — Social Proof                                     */}
-          {/* ============================================================ */}
-          <div className="animate-fade-in-up" style={{ animationDelay: "800ms" }}>
-            <div className="grid grid-cols-3 gap-2 sm:gap-3">
-              {[
-                { value: "10,000+", label: "Employers Served" },
-                { value: "50", label: "States Covered" },
-                { value: "1M+", label: "Members Enrolled" },
-              ].map((stat) => (
-                <div
-                  key={stat.label}
-                  className="rounded-xl py-4 px-3 sm:py-5 sm:px-4 text-center border"
-                  style={{ backgroundColor: "rgba(11,32,67,0.03)", borderColor: "rgba(11,32,67,0.08)" }}
-                >
-                  <p className="text-xl sm:text-3xl font-display font-normal" style={{ color: "#0b2043" }}>
-                    {stat.value}
-                  </p>
-                  <p className="text-[10px] sm:text-xs text-gray-500 mt-1 font-medium">{stat.label}</p>
-                </div>
-              ))}
-            </div>
-          </div>
+
 
           {/* ============================================================ */}
           {/* CARD 3 — Employee Benefits Detail                            */}
@@ -316,7 +294,7 @@ export default function CaseViewerPage({
               <h2 className="text-lg font-bold" style={{ color: "#0b2043" }}>
                 Employee Benefits
               </h2>
-              <p className="text-xs text-gray-400 mt-1">Healthcare, telehealth, and life insurance — all at $0 out-of-pocket cost.</p>
+              <p className="text-xs text-gray-400 mt-1">Healthcare and telehealth — all at $0 out-of-pocket cost.</p>
             </div>
 
             <div className="px-5 py-6 sm:px-8 space-y-7 sm:space-y-6">
@@ -359,29 +337,15 @@ export default function CaseViewerPage({
                 </div>
               </div>
 
-              {/* Life Insurance */}
+              {/* Voluntary Benefits */}
               <div>
                 <h3 className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: "#38b6ff" }}>
                   + Additional Voluntary Benefits
                 </h3>
                 <div className="rounded-xl p-5 border border-gray-100" style={{ backgroundColor: "rgba(56,182,255,0.03)" }}>
-                  <p className="text-sm font-semibold text-gray-800 mb-3">
-                    Up to $250,000 Whole Life Insurance Policy
+                  <p className="text-sm font-semibold text-gray-800">
+                    Voluntary benefits of your choice
                   </p>
-                  <div className="space-y-3 sm:space-y-2">
-                    {[
-                      { num: "1", text: "Traditional whole life insurance — beneficiaries receive death benefit as a lump-sum cash payment." },
-                      { num: "2", text: "Long-term care services — draw funds from death benefit for monthly long-term care payments." },
-                      { num: "3", text: "Accumulated cash value — withdraw funds or borrow against cash balance for financial emergencies." },
-                    ].map((item) => (
-                      <div key={item.num} className="flex gap-3">
-                        <span className="w-6 h-6 rounded-full text-xs font-bold text-white flex items-center justify-center shrink-0" style={{ backgroundColor: "#0b2043" }}>
-                          {item.num}
-                        </span>
-                        <p className="text-sm text-gray-600 leading-relaxed">{item.text}</p>
-                      </div>
-                    ))}
-                  </div>
                 </div>
               </div>
             </div>
@@ -402,6 +366,16 @@ export default function CaseViewerPage({
             </div>
 
             <div className="px-5 py-6 sm:px-8 space-y-5 sm:space-y-6">
+              {/* Reduce Employee Turnover */}
+              <div className="rounded-xl p-6 border" style={{ backgroundColor: "rgba(16,185,129,0.04)", borderColor: "rgba(16,185,129,0.15)" }}>
+                <h3 className="text-sm font-semibold text-emerald-700 mb-2">Reduce Employee Turnover</h3>
+                <p className="text-sm text-gray-600 leading-relaxed">
+                  With rising healthcare costs, it&apos;s often not financially feasible for employers to offer
+                  benefits. This program is a great solution to reduce turnover, increase retention,
+                  &amp; provide benefits at zero net out-of-pocket cost.
+                </p>
+              </div>
+
               {/* Payroll Savings */}
               <div className="rounded-xl p-6 border" style={{ backgroundColor: "rgba(16,185,129,0.04)", borderColor: "rgba(16,185,129,0.15)" }}>
                 <div className="flex flex-col sm:flex-row sm:items-center gap-4">
@@ -424,16 +398,8 @@ export default function CaseViewerPage({
                 </div>
               </div>
 
-              {/* Turnover + Current Benefits */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="bg-gray-50 rounded-xl p-5 border border-gray-100">
-                  <h3 className="text-sm font-semibold text-gray-800 mb-2">Reduce Employee Turnover</h3>
-                  <p className="text-sm text-gray-500 leading-relaxed">
-                    With rising healthcare costs, it&apos;s often not financially feasible for employers to offer
-                    benefits. This program is a great solution to reduce turnover, increase retention,
-                    &amp; provide benefits at zero net out-of-pocket cost.
-                  </p>
-                </div>
+              {/* Current Benefits */}
+              <div>
                 <div className="bg-gray-50 rounded-xl p-5 border border-gray-100">
                   <h3 className="text-sm font-semibold text-gray-800 mb-2">Does This Impact Current Benefits?</h3>
                   <p className="text-sm text-gray-500 leading-relaxed">
@@ -481,7 +447,7 @@ export default function CaseViewerPage({
                       { label: "Medicare", without: "-$47.75", with: "-$29.00" },
                       { label: "Total Taxes", without: "-$836.49", with: "-$509.29", bold: true },
                       { label: "SIMERP: Reimbursement", without: "$0.00", with: "+$1,293.00", highlight: true },
-                      { label: "After-Tax Deduction", without: "$0.00", with: "-$258.14" },
+                      { label: "After-Tax Deduction", without: "$0.00", with: "-$258.14", bold: true },
                     ].map((row) => (
                       <tr key={row.label} className={row.highlight ? "bg-blue-50/50" : row.bold ? "bg-gray-50" : ""}>
                         <td className={`px-3 py-2.5 sm:px-4 text-gray-700 ${row.bold || row.highlight ? "font-semibold" : ""}`}>{row.label}</td>
@@ -489,6 +455,18 @@ export default function CaseViewerPage({
                         <td className={`px-2 py-2.5 sm:px-4 text-right whitespace-nowrap ${row.highlight ? "font-semibold" : ""} ${row.bold ? "font-semibold text-gray-900" : ""}`}
                           style={row.highlight ? { color: "#38b6ff" } : undefined}
                         >{row.with}</td>
+                      </tr>
+                    ))}
+                    {/* After-Tax Breakdown sub-rows */}
+                    {[
+                      { label: "Provider", amount: "-$149.00" },
+                      { label: "MEC", amount: "-$65.00" },
+                      { label: "Other Voluntary Benefits", amount: "-$44.14" },
+                    ].map((sub) => (
+                      <tr key={sub.label} className="bg-gray-50/50">
+                        <td className="px-3 py-1.5 sm:px-4 pl-6 sm:pl-8 text-gray-400 text-xs">{sub.label}</td>
+                        <td className="px-2 py-1.5 sm:px-4 text-right text-gray-300 text-xs whitespace-nowrap" />
+                        <td className="px-2 py-1.5 sm:px-4 text-right text-gray-500 text-xs whitespace-nowrap">{sub.amount}</td>
                       </tr>
                     ))}
                     {/* Net Take Home - special row */}
@@ -532,15 +510,15 @@ export default function CaseViewerPage({
               </h2>
               <p className="text-sm text-gray-500 mt-2 leading-relaxed">
                 The Plan is a Self-Insured Medical Reimbursement Plan (SIMERP) purposely created,
-                thoroughly researched, and found compliant with IRC 213(d), 106(a), 105(b), 1.105-II(i),
-                and 104(a)(3) codes, and all applicable IRS memos, ERISA regulations, HIPAA, and the ADA.
+                thoroughly researched, and compliant with IRC 213(d), 106(a), 105(b), 1.105-II(i),
+                and 104(a)(3) codes, and all applicable IRS memos, ERISA regulations, HIPAA, and the ACA.
               </p>
             </div>
 
             <div className="px-5 py-6 sm:px-8">
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3">
                 {[
-                  { label: "Wellness", codes: "IRC §106(a), §213(d), §105(b), ERISA, HIPAA, ADA" },
+                  { label: "Wellness", codes: "IRC §106(a), §213(d), §105(b), ERISA, HIPAA, ACA" },
                   { label: "Medical", codes: "IRC §213(d), ACA" },
                   { label: "Pre-Tax", codes: "IRC §106(a), §213(d), §125" },
                   { label: "Post-Tax", codes: "IRC §105(b), §213(d), 1.105-11(i), 104(a)(3)" },
@@ -555,9 +533,79 @@ export default function CaseViewerPage({
           </div>
 
           {/* ============================================================ */}
-          {/* CARD 7 — Calculation Details + Disclaimer                    */}
+          {/* CARD — Employer Net Savings + Breakdown                      */}
           {/* ============================================================ */}
           <div className="bg-white rounded-2xl shadow-xl shadow-gray-200/60 border border-gray-100 overflow-hidden animate-fade-in-up" style={{ animationDelay: "1600ms" }}>
+            {/* Hero Number */}
+            <div
+              className="px-5 py-8 sm:px-8 sm:py-10 text-center border-b border-emerald-100"
+              style={{ background: "linear-gradient(to bottom, #ecfdf5, #ffffff)" }}
+            >
+              <p
+                className="text-xs font-semibold text-emerald-700 uppercase tracking-widest mb-3 animate-fade-in"
+                style={{ animationDelay: "1700ms" }}
+              >
+                Employer Net Savings
+              </p>
+              <p
+                className="text-5xl sm:text-6xl font-display font-normal text-emerald-700 tracking-tight animate-number-pop"
+                style={{ animationDelay: "1800ms" }}
+              >
+                {formatUSD(animEr)}
+              </p>
+              <p
+                className="text-sm text-emerald-500 mt-3 animate-fade-in"
+                style={{ animationDelay: "1900ms" }}
+              >
+                {formatUSD(caseData.calc_inputs.rate_er)} per W-2
+              </p>
+            </div>
+
+            {/* Breakdown Cards */}
+            <div className="px-5 py-7 sm:px-8 sm:py-8">
+              <h3
+                className="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-4 sm:mb-5 animate-fade-in"
+                style={{ animationDelay: "2000ms" }}
+              >
+                Savings Breakdown
+              </h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div
+                  className="bg-gray-50 border border-gray-200 rounded-xl p-6 animate-slide-up hover:shadow-md hover:shadow-gray-100/50 transition-shadow duration-300"
+                  style={{ animationDelay: "2100ms" }}
+                >
+                  <div className="flex items-center gap-2 mb-2">
+                    <div className="w-2.5 h-2.5 rounded-full bg-gray-500 animate-pulse-soft" />
+                    <p className="text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                      Estimated Total Tax Reduction
+                    </p>
+                  </div>
+                  <p className="text-3xl sm:text-4xl font-display font-normal text-gray-900 mt-1">
+                    {formatUSD(animTotal)}
+                  </p>
+                </div>
+                <div
+                  className="bg-sky-50 border border-sky-100 rounded-xl p-6 animate-slide-up hover:shadow-md hover:shadow-sky-100/50 transition-shadow duration-300"
+                  style={{ animationDelay: "2200ms" }}
+                >
+                  <div className="flex items-center gap-2 mb-2">
+                    <div className="w-2.5 h-2.5 rounded-full bg-sky-500 animate-pulse-soft" />
+                    <p className="text-xs font-semibold text-sky-700 uppercase tracking-wider">
+                      Employee Reduction
+                    </p>
+                  </div>
+                  <p className="text-3xl sm:text-4xl font-display font-normal text-sky-700 mt-1">
+                    {formatUSD(animEe)}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* ============================================================ */}
+          {/* CARD 7 — Calculation Details + Disclaimer                    */}
+          {/* ============================================================ */}
+          <div className="bg-white rounded-2xl shadow-xl shadow-gray-200/60 border border-gray-100 overflow-hidden animate-fade-in-up" style={{ animationDelay: "2300ms" }}>
             {/* Calculation Details */}
             <div className="px-5 pt-7 pb-5 sm:px-8 sm:pt-8 sm:pb-6">
               <div className="bg-gray-50 rounded-xl p-4 sm:p-5 border border-gray-100">
@@ -583,78 +631,6 @@ export default function CaseViewerPage({
                   transaction specifics. This is not financial, tax, or legal
                   advice. Consult your advisors.
                 </p>
-              </div>
-            </div>
-          </div>
-
-          {/* ============================================================ */}
-          {/* CARD — Employer Net Savings + Breakdown                      */}
-          {/* ============================================================ */}
-          <div className="bg-white rounded-2xl shadow-xl shadow-gray-200/60 border border-gray-100 overflow-hidden animate-fade-in-up" style={{ animationDelay: "1700ms" }}>
-            {/* Hero Number */}
-            <div
-              className="px-5 py-8 sm:px-8 sm:py-10 text-center border-b border-emerald-100"
-              style={{ background: "linear-gradient(to bottom, #ecfdf5, #ffffff)" }}
-            >
-              <p
-                className="text-xs font-semibold text-emerald-700 uppercase tracking-widest mb-3 animate-fade-in"
-                style={{ animationDelay: "1800ms" }}
-              >
-                Employer Net Savings
-              </p>
-              <p
-                className="text-5xl sm:text-6xl font-display font-normal text-emerald-700 tracking-tight animate-number-pop"
-                style={{ animationDelay: "1900ms" }}
-              >
-                {formatUSD(animEr)}
-              </p>
-              <p
-                className="text-sm text-emerald-500 mt-3 animate-fade-in"
-                style={{ animationDelay: "2000ms" }}
-              >
-                {formatUSD(caseData.calc_inputs.rate_er)} per W-2
-              </p>
-            </div>
-
-            {/* Breakdown Cards */}
-            <div className="px-5 py-7 sm:px-8 sm:py-8">
-              <h3
-                className="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-4 sm:mb-5 animate-fade-in"
-                style={{ animationDelay: "2100ms" }}
-              >
-                Savings Breakdown
-              </h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div
-                  className="bg-gray-50 border border-gray-200 rounded-xl p-6 animate-slide-up hover:shadow-md hover:shadow-gray-100/50 transition-shadow duration-300"
-                  style={{ animationDelay: "2200ms" }}
-                >
-                  <div className="flex items-center gap-2 mb-2">
-                    <div className="w-2.5 h-2.5 rounded-full bg-gray-500 animate-pulse-soft" />
-                    <p className="text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                      Estimated Total Tax Reduction
-                    </p>
-                  </div>
-                  <p className="text-3xl sm:text-4xl font-display font-normal text-gray-900 mt-1">
-                    {formatUSD(animTotal)}
-                  </p>
-                  {/* rate subtitle removed */}
-                </div>
-                <div
-                  className="bg-sky-50 border border-sky-100 rounded-xl p-6 animate-slide-up hover:shadow-md hover:shadow-sky-100/50 transition-shadow duration-300"
-                  style={{ animationDelay: "2350ms" }}
-                >
-                  <div className="flex items-center gap-2 mb-2">
-                    <div className="w-2.5 h-2.5 rounded-full bg-sky-500 animate-pulse-soft" />
-                    <p className="text-xs font-semibold text-sky-700 uppercase tracking-wider">
-                      Employee Reduction
-                    </p>
-                  </div>
-                  <p className="text-3xl sm:text-4xl font-display font-normal text-sky-700 mt-1">
-                    {formatUSD(animEe)}
-                  </p>
-                  {/* rate subtitle removed */}
-                </div>
               </div>
             </div>
           </div>
