@@ -106,7 +106,7 @@ function LoginForm() {
           >
             <Image
               src="/logo-full-white.png"
-              alt="First Gen Industries"
+              alt="First Gen Financial"
               width={160}
               height={36}
               className="animate-fade-in-down"

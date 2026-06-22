@@ -160,7 +160,6 @@ export default function CaseViewerPage({
 
   if (isSuccess && caseData) {
     const w2 = caseData.calc_inputs.w2_count;
-    const year = caseData.calc_inputs.tax_year;
 
     return (
       <PageShell companyName={caseData.company_name}>
@@ -177,7 +176,7 @@ export default function CaseViewerPage({
             >
               <Image
                 src="/logo-white.png"
-                alt="First Gen Industries"
+                alt="First Gen Financial"
                 width={180}
                 height={40}
                 className="mb-6 animate-fade-in-down"
@@ -187,7 +186,7 @@ export default function CaseViewerPage({
                 className="text-xs font-medium uppercase tracking-widest mb-1 animate-fade-in-up"
                 style={{ animationDelay: "100ms", color: "rgba(255,255,255,0.7)" }}
               >
-                SIMERP Proposal
+                First Gen Health Proposal
               </p>
               <h1
                 className="text-2xl font-bold text-white animate-fade-in-up"
@@ -211,26 +210,25 @@ export default function CaseViewerPage({
               </div>
             </div>
 
-            {/* What is SIMERP — inside Card 1 */}
+            {/* What is First Gen Health — inside Card 1 */}
             <div className="px-5 pt-7 pb-2 sm:px-8 sm:pt-8">
               <p className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: "#38b6ff" }}>
                 Overview
               </p>
               <h2 className="text-lg font-bold text-gray-900" style={{ color: "#0b2043" }}>
-                What is SIMERP?
+                What is First Gen Health?
               </h2>
-              <p className="text-xs text-gray-400 mt-1">A proven program offers employees access to affordable coverage.</p>
+              <p className="text-xs text-gray-400 mt-1">The new standard of healthcare coverage.</p>
               <p className="text-sm text-gray-600 mt-4 leading-relaxed">
-                A <span className="font-semibold">Self Insured Medical Expense Reimbursement Plan (SIMERP)</span> is
-                an employer-sponsored workplace program that allows employees to supplement their
-                benefits with zero net out-of-pocket costs. SIMERP reduces business payroll costs
-                by up to <span className="font-semibold">$1,186 per W-2 employee</span>, and results in an increase
-                to the bottom line of the organization.
+                <span className="font-semibold">First Gen Health</span> is an employer-sponsored
+                {" "}<span className="font-semibold">Self Insured Medical Plan</span> that allows employees to
+                supplement their benefits with net zero out-of-pocket costs. It significantly reduces business
+                payroll costs by up to <span className="font-semibold">$1,186 per W-2 employee</span>, and results
+                in an increase to the bottom line of the organization.
               </p>
               <p className="text-sm text-gray-500 mt-3 leading-relaxed">
-                The program is derived from the IRC &amp; Affordable Care Act, established during the
-                ACA era. It is centered around the government&apos;s focus on establishing a healthier,
-                more productive workforce.
+                The program is centered around the government&apos;s focus on establishing a healthier,
+                more productive workforce and lowering the burden of healthcare costs.
               </p>
             </div>
 
@@ -245,7 +243,11 @@ export default function CaseViewerPage({
                   <ul className="space-y-2.5 text-sm text-gray-600">
                     <li className="flex gap-2">
                       <span className="text-emerald-500 mt-0.5 shrink-0">&#10003;</span>
-                      <span>No out-of-pocket cost + average <strong>$1,186</strong> in net EBITDA increase per employee per year</span>
+                      <span>Ability to offer better &amp; more comprehensive benefits to staff</span>
+                    </li>
+                    <li className="flex gap-2">
+                      <span className="text-emerald-500 mt-0.5 shrink-0">&#10003;</span>
+                      <span>No out-of-pocket cost + average <strong>$1,186</strong> in net EBITDA increase per employee per year. Additional potential to save on insurance premiums</span>
                     </li>
                     <li className="flex gap-2">
                       <span className="text-emerald-500 mt-0.5 shrink-0">&#10003;</span>
@@ -284,6 +286,20 @@ export default function CaseViewerPage({
 
 
           {/* ============================================================ */}
+          {/* CARD 2 — Trust Banner                                        */}
+          {/* ============================================================ */}
+          <div
+            className="bg-white rounded-2xl shadow-xl shadow-gray-200/60 border border-gray-100 overflow-hidden animate-fade-in-up px-5 py-7 sm:px-8 sm:py-8 text-center"
+            style={{ animationDelay: "1100ms" }}
+          >
+            <p className="text-xl sm:text-2xl font-display font-normal leading-snug" style={{ color: "#0b2043" }}>
+              Join employers with over{" "}
+              <span style={{ color: "#38b6ff" }}>1,000,000 members</span>
+            </p>
+            <p className="text-sm text-gray-500 mt-2">on an industry-leading platform.</p>
+          </div>
+
+          {/* ============================================================ */}
           {/* CARD 3 — Employee Benefits Detail                            */}
           {/* ============================================================ */}
           <div className="bg-white rounded-2xl shadow-xl shadow-gray-200/60 border border-gray-100 overflow-hidden animate-fade-in-up" style={{ animationDelay: "1200ms" }}>
@@ -301,7 +317,7 @@ export default function CaseViewerPage({
               {/* MEC Services */}
               <div>
                 <h3 className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: "#38b6ff" }}>
-                  MEC Services (In-Person)
+                  M.E.C Services (Minimal Essential Coverage, In-Person)
                 </h3>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   {[
@@ -340,14 +356,123 @@ export default function CaseViewerPage({
               {/* Voluntary Benefits */}
               <div>
                 <h3 className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: "#38b6ff" }}>
-                  + Additional Voluntary Benefits
+                  + Additional Voluntary Benefit of Choice
                 </h3>
-                <div className="rounded-xl p-5 border border-gray-100" style={{ backgroundColor: "rgba(56,182,255,0.03)" }}>
-                  <p className="text-sm font-semibold text-gray-800">
-                    Voluntary benefits of your choice
+                <div className="rounded-xl p-5 border border-gray-100 mb-3" style={{ backgroundColor: "rgba(56,182,255,0.03)" }}>
+                  <p className="text-sm font-semibold" style={{ color: "#38b6ff" }}>
+                    + Up to $250,000
+                  </p>
+                  <p className="text-sm font-semibold text-gray-800 mt-0.5">
+                    Whole Life Insurance Policy
                   </p>
                 </div>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                  {[
+                    { title: "Traditional Whole Life Insurance", desc: "If they pass away, their beneficiaries receive the death benefit as a lump-sum cash payment." },
+                    { title: "Long-Term Care Services", desc: "If they become ill and need long-term care, they can draw from the death benefit to receive monthly payments for long-term care services." },
+                    { title: "Accumulated Cash Value", desc: "In a financial emergency, they can withdraw funds from the cash balance — or borrow against it." },
+                  ].map((item) => (
+                    <div key={item.title} className="bg-gray-50 rounded-lg p-4 border border-gray-100">
+                      <p className="text-sm font-semibold text-gray-800">{item.title}</p>
+                      <p className="text-xs text-gray-500 mt-1 leading-relaxed">{item.desc}</p>
+                    </div>
+                  ))}
+                </div>
               </div>
+            </div>
+          </div>
+
+          {/* ============================================================ */}
+          {/* CARD 3b — Plan Design (Medical + Rx)                         */}
+          {/* ============================================================ */}
+          <div className="bg-white rounded-2xl shadow-xl shadow-gray-200/60 border border-gray-100 overflow-hidden animate-fade-in-up" style={{ animationDelay: "1250ms" }}>
+            <div className="px-5 pt-7 pb-2 sm:px-8 sm:pt-8">
+              <p className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: "#38b6ff" }}>
+                Plan Design
+              </p>
+              <h2 className="text-lg font-bold" style={{ color: "#0b2043" }}>
+                Medical Plan
+              </h2>
+              <p className="text-xs text-gray-400 mt-1">Key plan design provisions — current plan.</p>
+            </div>
+
+            {/* Medical table */}
+            <div className="px-3 py-5 sm:px-8 sm:pt-6">
+              <div className="overflow-x-auto rounded-xl border border-gray-200">
+                <table className="w-full text-xs sm:text-sm">
+                  <thead>
+                    <tr style={{ backgroundColor: "#0b2043" }}>
+                      <th className="text-left px-3 py-3 sm:px-4 text-[10px] sm:text-xs font-semibold text-white uppercase tracking-wider">Service</th>
+                      <th className="text-right px-2 py-3 sm:px-4 text-[10px] sm:text-xs font-semibold uppercase tracking-wider whitespace-nowrap" style={{ color: "#38b6ff" }}>Virtual</th>
+                      <th className="text-right px-2 py-3 sm:px-4 text-[10px] sm:text-xs font-semibold text-white uppercase tracking-wider whitespace-nowrap">In-Person</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-gray-100">
+                    {[
+                      { service: "Deductible", note: "Medical copays do not count toward deductible(s)", virtual: "Single $0 / Family $0", inPerson: "Single $0 / Family $0" },
+                      { service: "Out-of-Pocket Maximum", note: "Includes deductible(s)", virtual: "Single $0 / Family $0", inPerson: "Single $0 / Family $0" },
+                      { service: "Account-Based Plan", virtual: "NO", inPerson: "NO" },
+                      { service: "Hospital", virtual: "0% Deductible Waived", inPerson: "0% Deductible Waived" },
+                      { service: "Outpatient Surgery", virtual: "0% Deductible Waived", inPerson: "0% Deductible Waived" },
+                      { service: "ER", note: "Copay waived if admitted", virtual: "0% Deductible Waived", inPerson: "0% Deductible Waived" },
+                      { service: "Urgent Care", virtual: "100% Deductible Waived", inPerson: "0% Deductible Waived" },
+                      { service: "Imaging", virtual: "0% Deductible Waived", inPerson: "0% Deductible Waived" },
+                      { service: "Emergency Transport", virtual: "0% Deductible Waived", inPerson: "0% Deductible Waived" },
+                      { service: "PCP Office Visits", virtual: "100% Deductible Waived", inPerson: "0% Deductible Waived" },
+                      { service: "Specialist Office Visit", virtual: "100% Deductible Waived", inPerson: "0% Deductible Waived" },
+                      { service: "Preventive Care", virtual: "100% Deductible Waived", inPerson: "0% Deductible Waived" },
+                      { service: "Maternity Office Visits", virtual: "100% Deductible Waived", inPerson: "0% Deductible Waived" },
+                      { service: "Diagnostic & Labs", virtual: "0% Deductible Waived", inPerson: "0% Deductible Waived" },
+                      { service: "MH / SA Outpatient Visits", virtual: "100% Deductible Waived", inPerson: "0% Deductible Waived" },
+                      { service: "DME", virtual: "0% Deductible Waived", inPerson: "0% Deductible Waived" },
+                    ].map((row) => (
+                      <tr key={row.service}>
+                        <td className="px-3 py-2.5 sm:px-4 text-gray-700 font-medium align-top">
+                          {row.service}
+                          {row.note && <span className="block text-[10px] text-gray-400 font-normal mt-0.5">{row.note}</span>}
+                        </td>
+                        <td className="px-2 py-2.5 sm:px-4 text-right text-gray-500 whitespace-nowrap align-top">{row.virtual}</td>
+                        <td className="px-2 py-2.5 sm:px-4 text-right text-gray-500 whitespace-nowrap align-top">{row.inPerson}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            {/* Prescription drug benefits */}
+            <div className="px-5 pb-1 sm:px-8">
+              <h3 className="text-xs font-semibold uppercase tracking-widest mb-1" style={{ color: "#38b6ff" }}>
+                Prescription Drug Benefits
+              </h3>
+            </div>
+            <div className="px-3 pb-6 sm:px-8">
+              <div className="overflow-x-auto rounded-xl border border-gray-200">
+                <table className="w-full text-xs sm:text-sm">
+                  <tbody className="divide-y divide-gray-100">
+                    {[
+                      { item: "Deductible", note: "Drug copays do not count toward deductible(s)", value: "Combined with Medical" },
+                      { item: "Out-of-Pocket Maximum", value: "Combined with Medical" },
+                      { item: "Retail Generic", value: "100% Coinsurance, No Deductible" },
+                      { item: "Retail Brand Preferred", value: "100% Coinsurance, No Deductible" },
+                      { item: "Retail Brand Non-Preferred", value: "0% Coinsurance, No Deductible" },
+                      { item: "Specialty", value: "Treated as any other scripts" },
+                      { item: "Mail Order Generic", value: "100% Coinsurance, No Deductible" },
+                      { item: "Mail Order Brand Preferred", value: "100% Coinsurance, No Deductible" },
+                      { item: "Mail Order Brand Non-Preferred", value: "0% Coinsurance, No Deductible" },
+                    ].map((row) => (
+                      <tr key={row.item}>
+                        <td className="px-3 py-2.5 sm:px-4 text-gray-700 font-medium align-top">
+                          {row.item}
+                          {row.note && <span className="block text-[10px] text-gray-400 font-normal mt-0.5">{row.note}</span>}
+                        </td>
+                        <td className="px-2 py-2.5 sm:px-4 text-right text-gray-500 whitespace-nowrap align-top">{row.value}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <p className="text-[10px] text-gray-400 mt-3 text-center">Only key plan design provisions shown; does not reflect all plan provisions.</p>
             </div>
           </div>
 
@@ -362,7 +487,7 @@ export default function CaseViewerPage({
               <h2 className="text-lg font-bold" style={{ color: "#0b2043" }}>
                 Employer Benefit
               </h2>
-              <p className="text-xs text-gray-400 mt-1">How SIMERP directly reduces payroll costs and increases profitability.</p>
+              <p className="text-xs text-gray-400 mt-1">How First Gen Health directly reduces payroll costs and increases profitability.</p>
             </div>
 
             <div className="px-5 py-6 sm:px-8 space-y-5 sm:space-y-6">
@@ -426,6 +551,27 @@ export default function CaseViewerPage({
               <p className="text-xs text-gray-400 mt-1">Illustrative monthly example showing how take-home pay increases.</p>
             </div>
 
+            {/* Assumptions + Employer FICA Savings */}
+            <div className="px-5 pt-1 pb-2 sm:px-8">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <div className="sm:col-span-2 bg-gray-50 rounded-xl p-4 border border-gray-100">
+                  <p className="text-[10px] font-semibold uppercase tracking-wider text-gray-400 mb-2">Assumptions (Monthly, VA)</p>
+                  <dl className="grid grid-cols-2 gap-x-4 gap-y-1 text-xs text-gray-600">
+                    <div className="flex justify-between gap-2"><dt className="text-gray-400">Monthly Wages*</dt><dd className="font-medium">$3,293.33</dd></div>
+                    <div className="flex justify-between gap-2"><dt className="text-gray-400">Annual Wages*</dt><dd className="font-medium">$39,520.00</dd></div>
+                    <div className="flex justify-between gap-2"><dt className="text-gray-400">Work State</dt><dd className="font-medium">VA</dd></div>
+                    <div className="flex justify-between gap-2"><dt className="text-gray-400">W-4</dt><dd className="font-medium">2020</dd></div>
+                  </dl>
+                  <p className="text-[10px] text-gray-400 mt-2">*Calculated @ 95%</p>
+                </div>
+                <div className="rounded-xl p-4 border flex flex-col justify-center" style={{ backgroundColor: "rgba(16,185,129,0.08)", borderColor: "rgba(16,185,129,0.2)" }}>
+                  <p className="text-[10px] font-semibold uppercase tracking-wider text-emerald-700 mb-1">Employer FICA Savings</p>
+                  <p className="text-2xl font-display font-normal text-emerald-700">$98.91<span className="text-sm text-emerald-600">/mo</span></p>
+                  <p className="text-[10px] text-emerald-600 mt-1">Per employee</p>
+                </div>
+              </div>
+            </div>
+
             <div className="px-3 py-6 sm:px-8">
               <div className="overflow-x-auto rounded-xl border border-gray-200">
                 <table className="w-full text-xs sm:text-sm">
@@ -433,21 +579,23 @@ export default function CaseViewerPage({
                     <tr style={{ backgroundColor: "#0b2043" }}>
                       <th className="text-left px-3 py-3 sm:px-4 text-[10px] sm:text-xs font-semibold text-white uppercase tracking-wider">Item</th>
                       <th className="text-right px-2 py-3 sm:px-4 text-[10px] sm:text-xs font-semibold text-white uppercase tracking-wider whitespace-nowrap">Without</th>
-                      <th className="text-right px-2 py-3 sm:px-4 text-[10px] sm:text-xs font-semibold uppercase tracking-wider whitespace-nowrap" style={{ color: "#38b6ff" }}>With SIMERP</th>
+                      <th className="text-right px-2 py-3 sm:px-4 text-[10px] sm:text-xs font-semibold uppercase tracking-wider whitespace-nowrap" style={{ color: "#38b6ff" }}>With FGH</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-100">
                     {[
                       { label: "Monthly Gross Pay", without: "$3,293.33", with: "$3,293.33" },
-                      { label: "SIMERP: Pre-Tax Deduction", without: "$0.00", with: "-$1,293.00", highlight: true },
+                      { label: "Major Medical Premium", without: "$0.00", with: "$0.00" },
+                      { label: "Additional Pre-Tax Deductions", without: "$0.00", with: "$0.00" },
+                      { label: "FGH: Pre-Tax Deduction", without: "$0.00", with: "-$1,293.00", highlight: true },
                       { label: "Taxable Income", without: "$3,293.33", with: "$2,000.33" },
                       { label: "Federal Withholding", without: "-$395.20", with: "-$240.04" },
                       { label: "State Withholding", without: "-$189.36", with: "-$116.23" },
                       { label: "Social Security", without: "-$204.18", with: "-$124.02" },
                       { label: "Medicare", without: "-$47.75", with: "-$29.00" },
                       { label: "Total Taxes", without: "-$836.49", with: "-$509.29", bold: true },
-                      { label: "SIMERP: Reimbursement", without: "$0.00", with: "+$1,293.00", highlight: true },
-                      { label: "After-Tax Deduction", without: "$0.00", with: "-$258.14", bold: true },
+                      { label: "FGH: Reimbursement", without: "$0.00", with: "+$1,144.00", highlight: true },
+                      { label: "After-Tax Deduction", without: "$0.00", with: "-$109.14", bold: true },
                     ].map((row) => (
                       <tr key={row.label} className={row.highlight ? "bg-blue-50/50" : row.bold ? "bg-gray-50" : ""}>
                         <td className={`px-3 py-2.5 sm:px-4 text-gray-700 ${row.bold || row.highlight ? "font-semibold" : ""}`}>{row.label}</td>
@@ -455,18 +603,6 @@ export default function CaseViewerPage({
                         <td className={`px-2 py-2.5 sm:px-4 text-right whitespace-nowrap ${row.highlight ? "font-semibold" : ""} ${row.bold ? "font-semibold text-gray-900" : ""}`}
                           style={row.highlight ? { color: "#38b6ff" } : undefined}
                         >{row.with}</td>
-                      </tr>
-                    ))}
-                    {/* After-Tax Breakdown sub-rows */}
-                    {[
-                      { label: "Provider", amount: "-$149.00" },
-                      { label: "MEC", amount: "-$65.00" },
-                      { label: "Other Voluntary Benefits", amount: "-$44.14" },
-                    ].map((sub) => (
-                      <tr key={sub.label} className="bg-gray-50/50">
-                        <td className="px-3 py-1.5 sm:px-4 pl-6 sm:pl-8 text-gray-400 text-xs">{sub.label}</td>
-                        <td className="px-2 py-1.5 sm:px-4 text-right text-gray-300 text-xs whitespace-nowrap" />
-                        <td className="px-2 py-1.5 sm:px-4 text-right text-gray-500 text-xs whitespace-nowrap">{sub.amount}</td>
                       </tr>
                     ))}
                     {/* Net Take Home - special row */}
@@ -479,21 +615,10 @@ export default function CaseViewerPage({
                 </table>
               </div>
 
-              {/* Net impact summary */}
-              <div className="mt-5 grid grid-cols-3 gap-2 sm:gap-3">
-                <div className="bg-emerald-50 rounded-lg p-3 sm:p-4 text-center border border-emerald-100">
-                  <p className="text-[10px] sm:text-xs text-emerald-600 font-medium">Gross Tax Savings</p>
-                  <p className="text-base sm:text-lg font-display font-normal text-emerald-700 mt-0.5">+$327.20</p>
-                </div>
-                <div className="bg-gray-50 rounded-lg p-3 sm:p-4 text-center border border-gray-100">
-                  <p className="text-[10px] sm:text-xs text-gray-500 font-medium">Supplemental Benefits</p>
-                  <p className="text-base sm:text-lg font-display font-normal text-gray-700 mt-0.5">-$258.14</p>
-                </div>
-                <div className="rounded-lg p-3 sm:p-4 text-center border" style={{ backgroundColor: "rgba(56,182,255,0.08)", borderColor: "rgba(56,182,255,0.2)" }}>
-                  <p className="text-[10px] sm:text-xs font-medium" style={{ color: "#0b2043" }}>Net Pay Increase</p>
-                  <p className="text-base sm:text-lg font-display font-normal mt-0.5" style={{ color: "#38b6ff" }}>+$69.06</p>
-                </div>
-              </div>
+              <p className="text-[10px] text-gray-400 mt-3 text-center">
+                All qualified benefit plans such as major medical, 401(k), and other health plans result in
+                a minor reduction in payroll costs. Illustrative example only.
+              </p>
             </div>
           </div>
 
@@ -506,28 +631,53 @@ export default function CaseViewerPage({
                 Legal Foundation
               </p>
               <h2 className="text-lg font-bold" style={{ color: "#0b2043" }}>
-                Compliance &amp; Tax Codes
+                Applicable Compliance Information
               </h2>
-              <p className="text-sm text-gray-500 mt-2 leading-relaxed">
-                The Plan is a Self-Insured Medical Reimbursement Plan (SIMERP) purposely created,
-                thoroughly researched, and compliant with IRC 213(d), 106(a), 105(b), 1.105-II(i),
-                and 104(a)(3) codes, and all applicable IRS memos, ERISA regulations, HIPAA, and the ACA.
-              </p>
+              <p className="text-xs text-gray-400 mt-1">Applicable tax codes for the plan.</p>
             </div>
 
             <div className="px-5 py-6 sm:px-8">
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3">
-                {[
-                  { label: "Wellness", codes: "IRC §106(a), §213(d), §105(b), ERISA, HIPAA, ACA" },
-                  { label: "Medical", codes: "IRC §213(d), ACA" },
-                  { label: "Pre-Tax", codes: "IRC §106(a), §213(d), §125" },
-                  { label: "Post-Tax", codes: "IRC §105(b), §213(d), 1.105-11(i), 104(a)(3)" },
-                ].map((item) => (
-                  <div key={item.label} className="bg-gray-50 rounded-lg p-3 border border-gray-100">
-                    <p className="text-xs font-semibold uppercase tracking-wider mb-1" style={{ color: "#0b2043" }}>{item.label}</p>
-                    <p className="text-xs text-gray-500 leading-relaxed">{item.codes}</p>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                {["IRC 125", "IRC 105(b)", "IRC 213(d)"].map((code) => (
+                  <div key={code} className="bg-gray-50 rounded-lg p-4 border border-gray-100">
+                    <p className="text-xs text-gray-400 mb-1">Applicable tax codes:</p>
+                    <p className="text-sm font-semibold" style={{ color: "#0b2043" }}>{code}</p>
                   </div>
                 ))}
+              </div>
+              <p className="text-xs text-gray-500 leading-relaxed mt-4">
+                This plan is an employee welfare plan. It is defined in, subject to, and complies with
+                applicable ERISA regulations.
+              </p>
+              <p className="text-xs text-gray-500 leading-relaxed mt-1">
+                This plan complies with ACA requirements to the extent that they apply.
+              </p>
+            </div>
+          </div>
+
+          {/* ============================================================ */}
+          {/* CARD 6b — Ease of Use (Portals)                              */}
+          {/* ============================================================ */}
+          <div className="bg-white rounded-2xl shadow-xl shadow-gray-200/60 border border-gray-100 overflow-hidden animate-fade-in-up" style={{ animationDelay: "1550ms" }}>
+            <div className="px-5 pt-7 pb-2 sm:px-8 sm:pt-8">
+              <p className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: "#38b6ff" }}>
+                Ease of Use
+              </p>
+              <h2 className="text-lg font-bold" style={{ color: "#0b2043" }}>
+                Built-In Portals
+              </h2>
+              <p className="text-xs text-gray-400 mt-1">Simple access for your team and your administrators.</p>
+            </div>
+            <div className="px-5 py-6 sm:px-8">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="rounded-xl p-5 border" style={{ backgroundColor: "rgba(56,182,255,0.04)", borderColor: "rgba(56,182,255,0.15)" }}>
+                  <h3 className="text-sm font-semibold mb-1" style={{ color: "#0b2043" }}>Employee Portal</h3>
+                  <p className="text-sm text-gray-600 leading-relaxed">24/7 access, anytime, anywhere.</p>
+                </div>
+                <div className="rounded-xl p-5 border" style={{ backgroundColor: "rgba(56,182,255,0.04)", borderColor: "rgba(56,182,255,0.15)" }}>
+                  <h3 className="text-sm font-semibold mb-1" style={{ color: "#0b2043" }}>Employer Portal</h3>
+                  <p className="text-sm text-gray-600 leading-relaxed">Easily manage your employee roster &amp; companies.</p>
+                </div>
               </div>
             </div>
           </div>
@@ -618,6 +768,25 @@ export default function CaseViewerPage({
               </div>
             </div>
 
+            {/* Important Disclosures */}
+            <div className="px-5 pb-5 sm:px-8 sm:pb-6">
+              <div className="border-t border-gray-100 pt-5">
+                <h4 className="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-2">
+                  Important Disclosures
+                </h4>
+                <p className="text-xs text-gray-400 leading-relaxed">
+                  <span className="font-semibold">Minimum Essential Coverage (MEC):</span> This is not Major
+                  Medical coverage. MEC coverage provides insurance benefits for Preventive Care Services
+                  only and meets the Minimum Essential Coverage requirements under the Affordable Care Act.
+                  There is NO diagnostic or hospitalization coverage under this insurance.
+                </p>
+                <p className="text-xs text-gray-400 leading-relaxed mt-2">
+                  This material is for general promotional and informational purposes only. It does not
+                  constitute, and should not be construed as, legal, tax, or financial planning advice.
+                </p>
+              </div>
+            </div>
+
             {/* Disclaimer */}
             <div className="px-5 pb-7 sm:px-8 sm:pb-8">
               <div className="border-t border-gray-100 pt-5">
@@ -676,6 +845,16 @@ function PageShell({
                   Operations@1gfg.com
                 </a>
               </p>
+              <p>
+                <a
+                  href="https://www.1gfg.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="transition-colors hover:[color:#38b6ff]"
+                >
+                  https://www.1gfg.com
+                </a>
+              </p>
               <p>99 Wall Street #5012</p>
               <p>New York, NY 10005</p>
             </div>
@@ -688,11 +867,11 @@ function PageShell({
                   <span className="font-medium">{companyName}</span>
                 </p>
               )}
+              <p>For Educational Purposes Only.</p>
               <p>
-                Copyright &copy; {year}, First Gen Industries LTD. All Rights
+                Copyright &copy; {year}, First Gen Financial. All Rights
                 Reserved.
               </p>
-              <p>&copy; {year} First Gen Financial</p>
             </div>
           </div>
         </div>
@@ -706,7 +885,7 @@ function LoadingSpinner() {
     <div className="flex flex-col items-center justify-center gap-4 animate-fade-in">
       <Image
         src="/logo-white.png"
-        alt="First Gen Industries"
+        alt="First Gen Financial"
         width={140}
         height={32}
         className="opacity-20 animate-shimmer"

@@ -24,9 +24,9 @@ export const metadata: Metadata = {
     template: "%s | FirstGen Proposal",
   },
   description:
-    "Secure tax reduction proposals powered by First Gen Industries. View your personalized W-2 tax savings analysis.",
-  keywords: ["tax reduction", "W-2", "employer savings", "employee reduction", "First Gen Industries"],
-  authors: [{ name: "First Gen Industries LTD" }],
+    "Secure tax reduction proposals powered by First Gen Financial. View your personalized W-2 tax savings analysis.",
+  keywords: ["tax reduction", "W-2", "employer savings", "employee reduction", "First Gen Financial"],
+  authors: [{ name: "First Gen Financial" }],
   openGraph: {
     title: "FirstGen Proposal",
     description: "View your personalized W-2 tax savings analysis.",
